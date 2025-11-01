@@ -35,7 +35,7 @@ level02@SnowCrash:~$
 - Running Wireshark, we find out that the file correspond to a capture of a TCP connection between 59.233.235.218 and 59.233.235.223 who started the 20 july 2011 at 7:23:12 and lasted for 42 seconds.
   ![Wireshark](wireshark_1.png)
 - We can retrieve the exchange with (right clic=>Follow=>TCP)
-  ![Follow TCP](wireshark,2.png)
+  ![Follow TCP](wireshark_2.png)
 
 ```
 ..wwwbugs login: l.le.ev.ve.el.lX.X
