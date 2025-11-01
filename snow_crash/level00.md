@@ -157,7 +157,7 @@ level00@SnowCrash:~$ file /usr/sbin/john
 cat /usr/sbin/john
 cdiidwpgswtgt
 find / -path /dev -prune -o -exec grep -Hn "flag00" {} \; 2>/dev/null
-                            ...
+...
 ```
 
 - We found a file belonging to `flag00` which contains this mysterious string: `ciidwpgswtgt`

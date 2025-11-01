@@ -34,15 +34,8 @@ level02@SnowCrash:~$
 
 - Running Wireshark, we find out that the file correspond to a capture of a TCP connection between 59.233.235.218 and 59.233.235.223 who started the 20 july 2011 at 7:23:12 and lasted for 42 seconds.
   ![Wireshark](wireshark_1.png)
-- We can retrieve the exchange with (right clic=>Follow=>TCP)
+- We can retrieve the exchange with: right clic=>Follow=>TCP
   ![Follow TCP](wireshark_2.png)
-
-```
-..wwwbugs login: l.le.ev.ve.el.lX.X
-..
-Password: ft_wandr...NDRel.L0L
-Login incorrect
-```
 
 - Knowing that dots correspond to backslashes we can recontstruct:
   - login: levelX
@@ -51,6 +44,6 @@ Login incorrect
 
 # Getflag
 
-- The password found allowed us to connect as `flag02` and to retrive the flag with the getflag command.
-- flag02 password: ft_waNDReL0L
-- level03 password (flag): kooda2puivaav1idi4f57q8iq
+- The password found allowed us to connect as `flag02` and to retrive the flag with the `getflag` command.
+- flag02 password: `ft_waNDReL0L`
+- level03 password (flag): `kooda2puivaav1idi4f57q8iq`

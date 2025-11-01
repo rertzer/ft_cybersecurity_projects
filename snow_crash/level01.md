@@ -8,18 +8,18 @@
   flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
 ```
 
-- hashed password: 42hDRfypTqqnw
+- `flag01` hashed password: `42hDRfypTqqnw`
 
-## General Reconnaissance
+## Reconnaissance
 
 - Our home contains no interesting information.
-- Searching for files related to flag01 didn't provide any suplementary information.
+- Searching for files related to `flag01` didn't provide any suplementary information.
 - We will then go forward exploiting the hashed password.
 
 ## John The Reapper
 
-- On Linux machines passwords are usually stored in /etc/password or /etc/shadow as a SHA-512 hash.
-- If the password is not to complicated it can bed cracked using a tool like John The Ripper.
+- On Linux machines passwords are usually stored in `/etc/password` or `/etc/shadow` as a `SHA-512` hash.
+- If the password isn't to complicated it can bed cracked using a tool like John The Ripper.
 
 ### Installing John
 
