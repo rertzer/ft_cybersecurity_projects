@@ -1,20 +1,23 @@
-# Goal
+# level01 - An Easy Start
 
-    find the flag00 user password
-    launching the getflag command as flag00 will provide us the password for level01
+## General Reconnaissance
 
-- login as user level00
+### Operating System
 
-# Reconnaissance
+- The SnowCrash machine is an Ubuntu Linux operating system.
+- The kernel is 32-bit with Physical Address Extension.
 
-## Where we are, where we can go
+```
+level00@SnowCrash:~$ uname -a
+Linux SnowCrash 3.2.0-89-generic-pae #127-Ubuntu SMP Tue Jul 28 09:52:21 UTC 2015 i686 i686 i386 GNU/Linux
+```
 
-- uname -a
-  - Linux SnowCrash 3.2.0-89-generic-pae #127-Ubuntu SMP Tue Jul 28 09:52:21 UTC 2015 i686 i686 i386 GNU/Linux
-- pwd
-  - /home/user/level00
-- ls -al
-  - nothing interesting
+### File System:
+
+- We don't have any access to the root folder.
+- We don't have read rights to the home directory.
+- The selinux folder is empty.
+- The rofs directory is a read only copy of the file system, probably to get an immutable system image.
 
 ```
 level00@SnowCrash:~$ ls -al /
@@ -46,15 +49,53 @@ drwxr-xr-x  1 root root  160 Mar 12  2016 var
 lrwxrwxrwx  1 root root   33 Aug 29  2015 vmlinuz -> boot/vmlinuz-3.2.0-89-generic-pae
 ```
 
-- no r/w on home/ but read access on /etc
-- ls -al /etc
+### Home Sweet `home`
+
+- By default we do not have write rights on our home.
+- Our home contains only default configuration files.
 
 ```
--rw-r--r-- 1 root root    2477 Mar  5  2016 passwd
+level00@SnowCrash:~$ pwd
+/home/user/level00
+level00@SnowCrash:~$ ls -al
+total 12
+dr-xr-x---+ 1 level00 level00  100 Mar  5  2016 .
+d--x--x--x  1 root    users    340 Aug 30  2015 ..
+-r-xr-x---+ 1 level00 level00  220 Apr  3  2012 .bash_logout
+-r-xr-x---+ 1 level00 level00 3518 Aug 30  2015 .bashrc
+level00@SnowCrash:~$ getfacl .
+# file: .
+# owner: level00
+# group: level00
+user::r-x
+user:level00:r-x
+group::---
+mask::r-x
+other::---
+default:user::r-x
+default:user:level00:r-x
+default:group::---
+default:mask::r-x
+default:other::---
+-r-xr-x---+ 1 level00 level00  675 Apr  3  2012 .profile
 ```
 
-- read rights on /etc/passwd
-- cat /etc/passwd
+## Looking For `flag00`
+
+### `/etc/passwd`
+
+- As we have access to the /etc directory, we can try to access to the passwords files in order to gather data on the flag00 user
+
+```
+level00@SnowCrash:~$ ls -al /etc/passwd
+-rw-r--r-- 1 root root 2477 Mar  5  2016 /etc/passwd
+level00@SnowCrash:~$ ls -al /etc/shadow
+-rw-r----- 1 root shadow 4428 Mar  6  2016 /etc/shadow
+level00@SnowCrash:~$ .
+```
+
+- We have read rights to /etc/passwd but not to etc/shadow (which contains the hashed passwords).
+- The passwd file contains the following lines:
 
 ```
 level00:x:2000:2000::/home/user/level00:/bin/bash
@@ -87,42 +128,48 @@ flag11:x:3011:3011::/home/flag/flag11:/bin/bash
 flag12:x:3012:3012::/home/flag/flag12:/bin/bash
 flag13:x:3013:3013::/home/flag/flag13:/bin/bash
 flag14:x:3014:3014::/home/flag/flag14:/bin/bash
-
 ```
 
-- there are users flagXX including flag00
-- for user flag01, hashed password 42hDRfypTqqnw. This will be usefull for the next level.
+- We learn that flag00 home is /home/flag/flag00.
+- Notice that an hashed password is stored for flag01. This information will be usefull for the next level.
 
-## files related to flag00
+### No Direction `home`
 
-- find / -user flag00 2>/dev/null
+- We can't read flag00 home content and will have to find another way to gather informations.
 
 ```
+level00@SnowCrash:~$ ls -al /home/flag/flag00
+ls: cannot open directory /home/flag/flag00: Permission denied
+```
+
+### Finding flag00
+
+- We are now looking for any file related to flag00 user, or containing the flag00 string.
+
+```
+level00@SnowCrash:~$ find / -user flag00 2>/dev/null
 /usr/sbin/john
 /rofs/usr/sbin/john
-```
-
-rofs is Read-Only File System for FUSE (File System in User Space)
-
-- the file is readable:
-  ls -al /usr/sbin/john
-
-```
+level00@SnowCrash:~$ ls -al /usr/sbin/john
 ----r--r-- 1 flag00 flag00 15 Mar  5  2016 /usr/sbin/john
-```
-
+level00@SnowCrash:~$ file /usr/sbin/john
+/usr/sbin/john: ASCII text
 cat /usr/sbin/john
 cdiidwpgswtgt
+find / -path /dev -prune -o -exec grep -Hn "flag00" {} \; 2>/dev/null
+```
 
-# Exploitation
+- We found a file belonging to flag00 which contains this mysterious string: ciidwpgswtgt
+- The search for files containing the string flag00 didn't provide any extra information.
 
-- su flag00
-- using it as a password for flag00 dont work
+### Ave Cesar
 
-## Checking for common encryptions
+- Our working hypothesis is that the string found in the john file could be the flag00 password, but it didn't work.
+- It could be that the string is encrypted. We then check for common basic encryption using [CacheSleuth](https://www.cachesleuth.com/multidecoder/), an online tool. It appears that the string is Rot15 (11) encrypted. The decoded string is: `nottohardhere`.
 
-- online tool
-  [CacheSleuth](https://www.cachesleuth.com/multidecoder/)
-- Rot15 (11) encryption
-  nottoohardhere
-  x24ti5gi3x0ol2eh4esiuxias
+## Getflag
+
+- Using `nottohardhere` as password, we manage to connect as flag00 and launch the getflag command, retrieving the flag.
+
+- flag00 password: `nottoohardhere`
+- level01 password (flag): `x24ti5gi3x0ol2eh4esiuxias`

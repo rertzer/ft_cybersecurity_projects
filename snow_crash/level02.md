@@ -1,10 +1,6 @@
-# Goal
+# level02 - pcap file and Wireshark
 
-find flag02 password
-
-# Reconnaissance
-
-## Lookaround
+## Our Home
 
 ```
 level02@SnowCrash:~$ pwd
@@ -22,23 +18,22 @@ level02@SnowCrash:~$
 
 ```
 
-pcap files are binary files used to store packet captures.
+- We found in our home (`level02`) a file belonging to flag02 on which we have read rights.
+- pcap files are binary files used to store packet captures.
+- Those files can be read using tools like Wireshark.
 
-- strings level02.pcap:
-- wwwbugs login: @f&NV.
-- Password: Nf&Nat
-- Login incorrect
-- wwwbugs login: df&N
+- whith a `strings level02.pcap` command, we retrieved the following lines:
+  - wwwbugs login: @f&NV.
+  - Password: Nf&Nat
+  - Login incorrect
+  - wwwbugs login: df&N
+- We can then expect to retrieve some credentials by further invastigating the `level02.pcap` file.
+- Therefore we first upload the file on our computer with the following command: `scp -P 6666 level02@localhost:level02.pcap` and get read/wirte rights on it: `chmod 644 level02.pcap`
 
-It is possible that we can find some credentials in it.
+## Wireshark
 
-We can further investigate using Wireshark
-
-1. download locally
-   scp -P 6666 level02@localhost:level02.pcap .
-   chmod 666 level02.pcap
-2. run Wireshark - the file correspond to a capture of a TCP connection between 59.233.235.218 and 59.233.235.223 who started the 20 july 2011 at 7:23:12 and lasted 42 seconds.
-   We can retrieve the exchange wiht (right clic=>Follow=>TCP)
+- Running Wireshark, we find out that the file correspond to a capture of a TCP connection between 59.233.235.218 and 59.233.235.223 who started the 20 july 2011 at 7:23:12 and lasted for 42 seconds.
+- We can retrieve the exchange with (right clic=>Follow=>TCP)
 
 ```
 ..wwwbugs login: l.le.ev.ve.el.lX.X
@@ -47,11 +42,13 @@ Password: ft_wandr...NDRel.L0L
 Login incorrect
 ```
 
-Knowing that dots correspond to backslashes we can recontstruct:
-login: levelX
-password: ft_waNDReL0L
+- Knowing that dots correspond to backslashes we can recontstruct:
+  - login: levelX
+  - Password: ft_waNDReL0L
+- Even if the login `levelX` is not `flag02`, as it is indicated as incorrect, we may hope that it is in fact `flag02`.
 
-# Exploitation
+# Getflag
 
-As the login levelX is incorrect or perhaps he mixed up the password, we can try whether the password wouldn't be the flag02 one ... and it is!
-flag:kooda2puivaav1idi4f57q8iq
+- The password found allowed us to connect as `flag02` and to retrive the flag with the getflag command.
+- flag02 password: ft_waNDReL0L
+- level03 password (flag): kooda2puivaav1idi4f57q8iq
