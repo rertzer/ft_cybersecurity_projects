@@ -1,4 +1,4 @@
-# level01 - An Easy Start
+# level00 - An Easy Start
 
 ## General Reconnaissance
 
@@ -84,7 +84,7 @@ default:other::---
 
 ### `/etc/passwd`
 
-- As we have access to the /etc directory, we can try to access to the passwords files in order to gather data on the flag00 user
+- As we have access to the /etc directory, we try to access to the passwords files in order to gather data on the flag00 user.
 
 ```
 level00@SnowCrash:~$ ls -al /etc/passwd
@@ -94,8 +94,8 @@ level00@SnowCrash:~$ ls -al /etc/shadow
 level00@SnowCrash:~$ .
 ```
 
-- We have read rights to /etc/passwd but not to etc/shadow (which contains the hashed passwords).
-- The passwd file contains the following lines:
+- We have read rights to `/etc/passwd` but not to `/etc/shadow` (which contains the hashed passwords).
+- The `passwd` file contains the following lines:
 
 ```
 level00:x:2000:2000::/home/user/level00:/bin/bash
@@ -130,12 +130,12 @@ flag13:x:3013:3013::/home/flag/flag13:/bin/bash
 flag14:x:3014:3014::/home/flag/flag14:/bin/bash
 ```
 
-- We learn that flag00 home is /home/flag/flag00.
-- Notice that an hashed password is stored for flag01. This information will be usefull for the next level.
+- We learn that `flag00` home is `/home/flag/flag00`.
+  > Notice that an hashed password is stored for `flag01`. This information will be usefull at the next level.
 
 ### No Direction `home`
 
-- We can't read flag00 home content and will have to find another way to gather informations.
+- We can't read `flag00` home's content and will have to find another way to gather informations.
 
 ```
 level00@SnowCrash:~$ ls -al /home/flag/flag00
@@ -144,7 +144,7 @@ ls: cannot open directory /home/flag/flag00: Permission denied
 
 ### Finding flag00
 
-- We are now looking for any file related to flag00 user, or containing the flag00 string.
+- We are now looking for any file related to `flag00` user, or containing the `flag00` string.
 
 ```
 level00@SnowCrash:~$ find / -user flag00 2>/dev/null
@@ -157,19 +157,20 @@ level00@SnowCrash:~$ file /usr/sbin/john
 cat /usr/sbin/john
 cdiidwpgswtgt
 find / -path /dev -prune -o -exec grep -Hn "flag00" {} \; 2>/dev/null
+                            ...
 ```
 
-- We found a file belonging to flag00 which contains this mysterious string: ciidwpgswtgt
-- The search for files containing the string flag00 didn't provide any extra information.
+- We found a file belonging to `flag00` which contains this mysterious string: `ciidwpgswtgt`
+- The search for files containing the string `flag00` didn't provide any extra information.
 
-### Ave Cesar
+### Ave Caesar
 
 - Our working hypothesis is that the string found in the john file could be the flag00 password, but it didn't work.
-- It could be that the string is encrypted. We then check for common basic encryption using [CacheSleuth](https://www.cachesleuth.com/multidecoder/), an online tool. It appears that the string is Rot15 (11) encrypted. The decoded string is: `nottohardhere`.
+- It could be that the string is encrypted. We then check for common basic encryption using [CacheSleuth](https://www.cachesleuth.com/multidecoder/), an online tool. It appears that the string is Rot15 encrypted (a Caesear cypher). The decoded string is: `nottohardhere`.
 
 ## Getflag
 
-- Using `nottohardhere` as password, we manage to connect as flag00 and launch the getflag command, retrieving the flag.
+- Using `nottohardhere` as password, we manage to connect as `flag00` and launch the `getflag` command, retrieving the flag.
 
-- flag00 password: `nottoohardhere`
-- level01 password (flag): `x24ti5gi3x0ol2eh4esiuxias`
+- `flag00` password: `nottoohardhere`
+- `level01` password (flag): `x24ti5gi3x0ol2eh4esiuxias`

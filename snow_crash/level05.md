@@ -1,9 +1,8 @@
-# Goal:
+# level05 - Our Daily Mail
 
-find level06 password
-flag can be obtained by running the getflag program as flag05 user
+## Daily Mail
 
-# Reconnaissance
+- On login we received the followind message: `You have new mail`
 
 ```
 snow_crash git:(snow_crash) ✗ ssh -p6666 level05@127.0.0.1
@@ -19,22 +18,14 @@ snow_crash git:(snow_crash) ✗ ssh -p6666 level05@127.0.0.1
           10.0.2.15
 level05@127.0.0.1's password:
 You have new mail.
-level05@SnowCrash:~$
-```
-
-```
-level05@SnowCrash:~$ pwd
-/home/user/level05
-level05@SnowCrash:~$ ls -al
-total 12
-dr-xr-x---+ 1 level05 level05  100 Mar  5  2016 .
-d--x--x--x  1 root    users    340 Aug 30  2015 ..
--r-x------  1 level05 level05  220 Apr  3  2012 .bash_logout
--r-x------  1 level05 level05 3518 Aug 30  2015 .bashrc
--r-x------  1 level05 level05  675 Apr  3  2012 .profile
 level05@SnowCrash:~$ cat /var/spool/mail/level05
 */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
 ```
+
+# Cron job
+
+- the mail content looks like a cron job line.
+- it executes every two minutes the following command: `su -c "sh /usr/sbin/openarenaserver"` as `flag05`
 
 ```
 evel05@SnowCrash:~$ find / -user flag05 2>/dev/null
