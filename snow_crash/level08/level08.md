@@ -1,8 +1,8 @@
-# Level 08 - This Is Not a Token
+# Level 08 - This Is Not A Token
 
-## Home content
+## Home Content
 
-- Here we have a level08 executable and a token file who cannot be read.
+- Here we have a `level08` executable and a `token` file who cannot be read.
 
 ```
 sh
@@ -12,9 +12,9 @@ total 16
 -rw-------  1 flag08 flag08    26 Mar  5  2016 token
 ```
 
-## `level08` executable
+## `level08` Executable
 
-- The executable refuse to read token
+- The executable refuses to read the `token` file.
 
 ```sh
 $ ./level08
@@ -38,7 +38,7 @@ if (strstr(argv[1], "token") != 0) {
 ## This Is Not a Token
 
 - A way to bypass this restriction is to create a symbolic link.
-- As we do not have write rights in our folder, let this time use the `/tmp/` folder.
+- As we still don't have write rights on our folder, let use the `/tmp/` folder for a change.
 
 ```sh
 $ ln -s /home/user/level08/token /tmp/the_key

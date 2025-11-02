@@ -10,7 +10,7 @@
 
 - `flag01` hashed password: `42hDRfypTqqnw`
 
-## Reconnaissance
+## Empty Home
 
 - Our home contains no interesting information.
 - Searching for files related to `flag01` didn't provide any suplementary information.
@@ -19,7 +19,7 @@
 ## John The Reapper
 
 - On Linux machines passwords are usually stored in `/etc/password` or `/etc/shadow` as a `SHA-512` hash.
-- If the password isn't to complicated it can bed cracked using a tool like John The Ripper.
+- If the password isn't to complicated it can be cracked using a tool like John The Ripper.
 
 ### Installing John
 

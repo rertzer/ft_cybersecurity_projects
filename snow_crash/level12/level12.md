@@ -1,14 +1,14 @@
 # Level 12 - A FILE NAMED HACK
 
-## Summary of Previous Level
+## Summary of Previous Levels
 
 - We have seen at level04 that an IPv6 service was listening on port 4646.
 - We also found a configuration file named `level12.conf` for an Apache2 enabled site.
 
-## Home content
+## Home Content
 
 - The folder contains a perl script named `level12.pl` and owned by `flag12`.
-- The SETUID and SETGID bits are set allowing it to be executed with `flag12` privileges.
+- The SETUID and SETGID bits are set, allowing it to be executed with `flag12` privileges.
 
 ```sh
 level12@SnowCrash:~$ ls -al
@@ -25,7 +25,7 @@ Content-type: text/html
 ..level12@SnowCrash:~$
 ```
 
-## level12 Apache site
+## level12 Apache
 
 - A CGI perl script is effectively active on port 4646, executing the script `/var/www/level12.pl`.
 - That script is identical to the one in our home folder.
@@ -53,8 +53,7 @@ drwxr-xr-x 1 root root 100 Nov 2 10:12 ..
 
 ## `level12.pl`
 
-- `level12.pl` runs a CGI script on localhost, port 4646.
-- The script takes two arguments x and y as parmeters and print either a dot or two dots according to those parameters.
+- The script takes two arguments x and y as parmeters and prints either a dot or two dots according to those parameters.
 
 ```sh
 level12@SnowCrash:~$ curl 'localhost:4646?x=hello&y=coucou'
@@ -71,8 +70,8 @@ level12@SnowCrash:~$ curl 'localhost:4646?x=hello&y=coucou'
 ```
 
 - It executes a shell command under `flag12` uid.
-- We noticed that, if we inject some code in `$xx`, it will be executed too.
-- Unfortunatly, the `$xx` variable will be prior wrecked up by two regular expressions, switching all letters to upercase and removing the first whitespace and everything that follows. A command like `getflag > /tmp/flag` won't go through.
+- Now, if we inject some code in `$xx`, it will be executed too.
+- Unfortunatly, the `$xx` variable will first be wrecked up by two regular expressions, switching all letters to upercase and removing the first whitespace and everything that follows. A command like `getflag > /tmp/flag` won't go through.
 - It is nevertheless possible to bypass those protections by embedding the command into a file with an upercase name like `HACK`.
 
 ```sh
@@ -84,8 +83,6 @@ level12@SnowCrash:~$ cat /tmp/flag
 ```
 
 > Notice that we can't use `level12`'s' home for the `flag` file as acls forbid user and group `flag12` to write in that directory.
-> Notice he `/*/` instead of `/tmp/` trick, as the lowercase `tmp` would be otherwise changed in `TMP` by the perl script.
-> That trick won't work to execute `HACK` in our folder. As the perl script executed is the one in the `/var/www/` directory, we will have to provide an absolut path going through `/home/` on which neither `level12` nor `flag12` have read rights, forbidding us to expand the `*` wild card.
 
 ```sh
 level12@SnowCrash:~$ getfacl /home/user/level12/
@@ -107,6 +104,10 @@ default:mask::r-x
 default:other::---
 ```
 
+> Notice he `/*/` instead of `/tmp/` trick, as the lowercase `tmp` would be otherwise changed in `TMP` by the perl script.
+
+> That trick won't work to execute `HACK` in our folder. As the perl script executed is the one in the `/var/www/` directory, we will have to provide an absolute path going through `/home/` on which neither `level12` nor `flag12` have read rights, forbidding us to expand the `*` wild card.
+
 # Flag
 
-- `level13` password: `g1qKMiRpXf53AWhDaU7FEkczr`
+- `level13` password (aka the flag): `g1qKMiRpXf53AWhDaU7FEkczr`

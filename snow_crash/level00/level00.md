@@ -1,4 +1,4 @@
-# level00 - An Easy Start
+# level00 - Ave Casear
 
 ## General Reconnaissance
 
@@ -84,7 +84,7 @@ default:other::---
 
 ### `/etc/passwd`
 
-- As we have access to the /etc directory, we try to access to the passwords files in order to gather data on the flag00 user.
+- As we have access to the /etc directory, we try to access to the passwords files in order to gather data on the `flag00` user.
 
 ```
 level00@SnowCrash:~$ ls -al /etc/passwd
@@ -142,7 +142,7 @@ level00@SnowCrash:~$ ls -al /home/flag/flag00
 ls: cannot open directory /home/flag/flag00: Permission denied
 ```
 
-### Finding flag00
+### Finding `flag00`
 
 - We are now looking for any file related to `flag00` user, or containing the `flag00` string.
 
@@ -165,12 +165,15 @@ find / -path /dev -prune -o -exec grep -Hn "flag00" {} \; 2>/dev/null
 
 ### Ave Caesar
 
-- Our working hypothesis is that the string found in the john file could be the flag00 password, but it didn't work.
-- It could be that the string is encrypted. We then check for common basic encryption using [CacheSleuth](https://www.cachesleuth.com/multidecoder/), an online tool. It appears that the string is Rot15 encrypted (a Caesear cypher). The decoded string is: `nottohardhere`.
+- Our working hypothesis is that the string found in the john file could be the `flag00` password, but it didn't work.
+- It could be that the string is encrypted.
+- We then check for common basic encryption using [CacheSleuth](https://www.cachesleuth.com/multidecoder/), an online tool.
+- It appears that the string is Rot15 encrypted (a Caesear cypher).
+- The decoded string is: `nottohardhere`.
 
 ## Getflag
 
-- Using `nottohardhere` as password, we manage to connect as `flag00` and launch the `getflag` command, retrieving the flag.
+- Using `nottohardhere` as a password, we manage to connect as `flag00` and launch the `getflag` command, retrieving the flag.
 
 - `flag00` password: `nottoohardhere`
 - `level01` password (flag): `x24ti5gi3x0ol2eh4esiuxias`

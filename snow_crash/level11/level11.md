@@ -1,8 +1,8 @@
-# Level 11 - lua ? Erf nope..
+# Level 11 - Lua ? Erf nope..
 
-## `home` content
+## Home Content
 
-- The home folder contain a lua script named `level11.lua``` owned by `flag11`.
+- The home folder contain a Lua script named `level11.lua``` owned by `flag11`.
 - SETUID and SETGID bits are set.
 
 ```sh
@@ -17,7 +17,7 @@ d--x--x--x  1 root    users    340 Aug 30  2015 ..
 $
 ```
 
-## The lua script code
+## The Lua Script Code
 
 - The script creates a server listening on port 5151.
 - It asks for a password.
@@ -34,7 +34,7 @@ end
 
 ## Command Substitution
 
-- By using the command substitution of `bash` (``\```) we can let the script execute our favorite command, `getflag`.
+- By using the command substitution of `bash` (\`) we can let the script execute our favorite command, `getflag`.
 
 ```sh
 $ level11@SnowCrash:~$ netcat 127.0.0.1 5151

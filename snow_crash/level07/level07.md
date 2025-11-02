@@ -1,8 +1,8 @@
-# level07 - Flag on Command
+# level07 - Flag On Command
 
 ## Home Content
 
-- `level07` is an execuable belonging to flag07 with SUID and SGID bits set.
+- `level07` is an execuable belonging to `flag07` with SUID and SGID bits set.
 
 ```
 level07@SnowCrash:~$ ls -al
@@ -15,7 +15,7 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 -r-x------ 1 level07 level07  675 Apr  3  2012 .profile
 ```
 
-## `level07` executable
+## `level07` Executable
 
 - Decompiling the file using [dogbolt](https://dobgolt.com) show the following code:
 

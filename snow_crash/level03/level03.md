@@ -1,6 +1,6 @@
-# level03 - PATH way to the flag
+# level03 - PATH Way To The Flag
 
-## Reconnaissance
+## Home
 
 - Our home contains an executable file named `level03` who belongs to `flag03` user.
 - It has the SUID and SGID bits set, meaning that we can execute it with `flag03` rights.
@@ -18,7 +18,7 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 -r-x------ 1 level03 level03  675 Apr  3  2012 .profile
 ```
 
-## `level03` executable
+## `level03` Executable
 
 ### Program Behavior
 
@@ -71,7 +71,7 @@ unsigned int v1; // [bp-0x8]
 ```
 
 - The `level03` executable will run the command line `/usr/bin/env echo Exploit me` with `flag03` rights.
-- We notice that the `echo` command has a relative path whereas the `env` command is given with an absolut path. The environement `PATH` variable will be used to find the `echo` command path, not the `env` command one.
+- We notice that the `echo` command has a relative path whereas the `env` command is given with an absolute path. The environement `PATH` variable will be used to find the `echo` command path, not the `env` command one.
 
 ## PATH way to the flag
 
@@ -85,7 +85,7 @@ level03@SnowCrash:~$ chmod 710 .
 - We then copy `getflag` as `echo` in our home
 
 ```
-level03@SnowCrash:~$ cp /bin/getflag echo.
+level03@SnowCrash:~$ cp /bin/getflag echo
 ```
 
 - And finally run `level03`, changing the `PATH` variable

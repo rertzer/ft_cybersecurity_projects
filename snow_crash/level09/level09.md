@@ -23,7 +23,7 @@ f4kmm6p|=�p�n��DB�Du{��
 - By decompiling the `level09` executable we understand that the returned value is encrypted with a progressive shift. The first letter have a shift of 0, the second of +1, the third of +2...
 
 ```sh
-$ scp -P 4243 level09@localhost:/home/user/level09/token .
+$ scp -P 6666 level09@localhost:/home/user/level09/token .
 $ chmod +r ./token
 ```
 
@@ -40,4 +40,4 @@ f3iji1ju5yuevaus41q1afiuq
 # Flag
 
 - `flag` password: `f3iji1ju5yuevaus41q1afiuq`
-- `level10` password: `s5cAJpM8ev6XHw998pRWG728z`
+- `level10` password (flag): `s5cAJpM8ev6XHw998pRWG728z`
