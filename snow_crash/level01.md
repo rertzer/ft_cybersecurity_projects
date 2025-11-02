@@ -1,6 +1,6 @@
 # level01 - Meeting John
 
-## Summary of Prevous Level
+## Summary of Previous Level
 
 - during the previous level we found a hashed password stored in `/etc/password` for user `flag01`:
 
