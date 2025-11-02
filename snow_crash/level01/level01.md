@@ -23,7 +23,7 @@
 
 ### Installing John
 
-```
+```console
 wget https://www.openwall.com/john/k/john-1.9.0-jumbo-1.tar.xz
 tar -xJf john-1.9.0-jumbo-1.tar.xz
 cd john-1.9.0-jumbo-1/src/
@@ -32,7 +32,7 @@ cd john-1.9.0-jumbo-1/src/
 
 ### Running John
 
-```
+```console
 cat 42hDRfypTqqnw > hash
 ./src/john hash
 ```

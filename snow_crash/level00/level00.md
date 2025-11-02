@@ -7,7 +7,7 @@
 - The SnowCrash machine is an Ubuntu Linux operating system.
 - The kernel is 32-bit with Physical Address Extension.
 
-```sh
+```console
 level00@SnowCrash:~$ uname -a
 Linux SnowCrash 3.2.0-89-generic-pae #127-Ubuntu SMP Tue Jul 28 09:52:21 UTC 2015 i686 i686 i386 GNU/Linux
 ```
@@ -19,7 +19,7 @@ Linux SnowCrash 3.2.0-89-generic-pae #127-Ubuntu SMP Tue Jul 28 09:52:21 UTC 201
 - The selinux folder is empty.
 - The rofs directory is a read only copy of the file system, probably to get an immutable system image.
 
-```sh
+```console
 level00@SnowCrash:~$ ls -al /
 total 2
 drwxr-xr-x  1 root root  240 Oct 29 10:16 .
@@ -54,7 +54,7 @@ lrwxrwxrwx  1 root root   33 Aug 29  2015 vmlinuz -> boot/vmlinuz-3.2.0-89-gener
 - By default we do not have write rights on our home.
 - Our home contains only default configuration files.
 
-```sh
+```console
 level00@SnowCrash:~$ pwd
 /home/user/level00
 level00@SnowCrash:~$ ls -al
@@ -86,7 +86,7 @@ default:other::---
 
 - As we have access to the /etc directory, we try to access to the passwords files in order to gather data on the `flag00` user.
 
-```sh
+```console
 level00@SnowCrash:~$ ls -al /etc/passwd
 -rw-r--r-- 1 root root 2477 Mar  5  2016 /etc/passwd
 level00@SnowCrash:~$ ls -al /etc/shadow
@@ -97,7 +97,7 @@ level00@SnowCrash:~$ .
 - We have read rights to `/etc/passwd` but not to `/etc/shadow` (which contains the hashed passwords).
 - The `passwd` file contains the following lines:
 
-```sh
+```console
 level00:x:2000:2000::/home/user/level00:/bin/bash
 level01:x:2001:2001::/home/user/level01:/bin/bash
 level02:x:2002:2002::/home/user/level02:/bin/bash
@@ -137,7 +137,7 @@ flag14:x:3014:3014::/home/flag/flag14:/bin/bash
 
 - We can't read `flag00` home's content and will have to find another way to gather informations.
 
-```sh
+```console
 level00@SnowCrash:~$ ls -al /home/flag/flag00
 ls: cannot open directory /home/flag/flag00: Permission denied
 ```
@@ -146,7 +146,7 @@ ls: cannot open directory /home/flag/flag00: Permission denied
 
 - We are now looking for any file related to `flag00` user, or containing the `flag00` string.
 
-```sh
+```console
 level00@SnowCrash:~$ find / -user flag00 2>/dev/null
 /usr/sbin/john
 /rofs/usr/sbin/john

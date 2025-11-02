@@ -21,7 +21,7 @@ fputs(ft_des("g <t61:|4_|!@IF.-62FH&G~DCK/Ekrv…"), stdout);
 
 3. 0xbc6 (3014) is `flag14` uid.
 
-```sh
+```console
 level14@SnowCrash:~$ id flag14
 uid=3014(flag14) gid=3014(flag14) groups=3014(flag14),1001(flag)
 ```

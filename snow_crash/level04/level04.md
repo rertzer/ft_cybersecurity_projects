@@ -5,7 +5,7 @@
 - `level04` home contains a perl script named `level04.pl` that belongs to `flag04`.
 - The script is SETUID and SETGID. It will be executed with `flag04` permissions.
 
-```
+```console
 level04@SnowCrash:~$ ls -al
 total 16
 dr-xr-x---+ 1 level04 level04  120 Mar  5  2016 .
@@ -21,7 +21,7 @@ d--x--x--x  1 root    users    340 Aug 30  2015 ..
 - The file seems to be a cgi script running on localhost, port 4747.
 - It echo the request parameter named `x`.
 
-```
+```console
 level04@SnowCrash:~$ cat level04.pl
 #!/usr/bin/perl
 # localhost:4747
@@ -39,7 +39,7 @@ level04@SnowCrash:~$
 
 - A service is effectively running on port 4747 under a `TCPv6` protocol.
 
-```
+```console
 level04@SnowCrash:~$ netstat -lt
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State
@@ -53,7 +53,7 @@ tcp6       0      0 [::]:4242               [::]:*                  LISTEN
 
 - The service is `Apache2.2.22`.
 
-```
+```console
 level04@SnowCrash:~$ curl "localhost:4747/badway"
 
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
@@ -77,7 +77,7 @@ level04@SnowCrash:~$ curl "localhost:4747/whoareyou"
 </body></html>
 ```
 
-```
+```console
 level04@SnowCrash:~$ ls /etc/apache2/sites-enabled/
 000-default  level05.conf  level12.conf
 level04@SnowCrash:~$ cat /etc/apache2/sites-enabled/level05.conf

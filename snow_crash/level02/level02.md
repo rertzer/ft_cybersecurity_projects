@@ -2,7 +2,7 @@
 
 ## Our Home
 
-```
+```console
 level02@SnowCrash:~$ pwd
 /home/user/level02
 level02@SnowCrash:~$ ls -al

