@@ -2,7 +2,7 @@
 
 ## Summary of Previous Level
 
-- during the previous level we found a hashed password stored in `/etc/password` for user `flag01`:
+- During the previous level we found a hashed password stored in `/etc/password` for user `flag01`:
 
 ```
   flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
@@ -44,3 +44,5 @@ cat 42hDRfypTqqnw > hash
 - Using the found password, we manage to connect as `flag01` and run the `getflag` command.
 - `flag01` password: `abcdefg`
 - `level02` password (flag): `f2av5il02puano7naaf6adaaf`
+
+<p align="center"><a href="../level00/level00.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level02/level02.md">Next =></a></p>
