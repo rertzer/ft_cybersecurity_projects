@@ -100,3 +100,5 @@ Check flag.Here is your token : viuaaale9huek52boumoomioc```
 # Flag
 
 - `level06` password (flag): `viuaaale9huek52boumoomioc`
+
+<p align="center"><a href="../level04/level04.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level06/level06.md">Next =></a></p>

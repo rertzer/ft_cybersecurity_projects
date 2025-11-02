@@ -47,3 +47,5 @@ level02@SnowCrash:~$
 - The password found allowed us to connect as `flag02` and to retrive the flag with the `getflag` command.
 - flag02 password: `ft_waNDReL0L`
 - level03 password (flag): `kooda2puivaav1idi4f57q8iq`
+
+<p align="center"><a href="../level01/level01.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level03/level03.md">Next =></a></p>

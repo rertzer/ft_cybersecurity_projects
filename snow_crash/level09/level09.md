@@ -41,3 +41,5 @@ f3iji1ju5yuevaus41q1afiuq
 
 - `flag` password: `f3iji1ju5yuevaus41q1afiuq`
 - `level10` password (flag): `s5cAJpM8ev6XHw998pRWG728z`
+
+<p align="center"><a href="../level08/level08.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level10/level10.md">Next =></a></p>

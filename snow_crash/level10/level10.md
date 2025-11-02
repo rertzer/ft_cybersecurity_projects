@@ -102,3 +102,5 @@ level10@SnowCrash:~$ killall bash
 
 - `flag10` password: `woupa2yuojeeaaed06riuj63c`
 - `level11` password (flag): `feulo4b72j7edeahuete3no7c`
+
+<p align="center"><a href="../level09/level09.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level11/level11.md">Next =></a></p>

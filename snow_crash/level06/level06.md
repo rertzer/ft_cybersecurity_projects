@@ -111,3 +111,5 @@ PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboi
 # Flag
 
 - `level07` password (flag): `wiok45aaoguiboiki2tuin6ub`
+
+<p align="center"><a href="../level05/level05.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level07/level07.md">Next =></a></p>

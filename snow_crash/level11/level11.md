@@ -44,3 +44,5 @@ Password: `getflag > /tmp/key`
 # Flag
 
 - `level12` password (flag): `fa6v5ateaw21peobuub8ipe6s`
+
+<p align="center"><a href="../level10/level10.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level12/level12.md">Next =></a></p>

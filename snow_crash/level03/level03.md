@@ -98,3 +98,5 @@ Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
 # Flag
 
 - `level04` password (flag): qi0maab88jeaj46qoumi7maus
+
+<p align="center"><a href="../level02/level02.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level04/level04.md">Next =></a></p>

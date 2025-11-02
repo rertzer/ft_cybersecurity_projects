@@ -111,3 +111,5 @@ default:other::---
 # Flag
 
 - `level13` password (aka the flag): `g1qKMiRpXf53AWhDaU7FEkczr`
+
+<p align="center"><a href="../level11/level11.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level13/level13.md">Next =></a></p>

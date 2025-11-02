@@ -36,3 +36,5 @@ Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
 # Flag
 
 - `level08` password (flag): `fiumuikeil55xe9cu4dood66h`
+
+<p align="center"><a href="../level06/level06.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level08/level08.md">Next =></a></p>

@@ -49,3 +49,5 @@ quif5eloekouj29ke0vouxean
 # Flag
 
 - `flag08` password (flag): `quif5eloekouj29ke0vouxean`.
+
+<p align="center"><a href="../level07/level07.md"><= Previous</a>&ensp;&ensp;&ensp;&ensp;<a href="../level09/level09.md">Next =></a></p>
