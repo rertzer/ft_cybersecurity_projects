@@ -178,4 +178,4 @@ find / -path /dev -prune -o -exec grep -Hn "flag00" {} \; 2>/dev/null
 - `flag00` password: `nottoohardhere`
 - `level01` password (flag): `x24ti5gi3x0ol2eh4esiuxias`
 
-<p align="left">[<= Previous](../snow_crash.md)</p><p align=right>[Next =>](../level01/level01.md)</p>
+<div style="float: left"><a href="../snow_crash.md">\<= Previous</a>)</div><div style="float right""><a href="../level01/level01.md">Next =\></a></div>
