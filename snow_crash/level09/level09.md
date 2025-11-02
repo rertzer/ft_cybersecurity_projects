@@ -1,4 +1,4 @@
-# Level 09
+# Level 09 - f4kmm6p|=�p�n��DB�Du{��
 
 ## Token
 
@@ -20,7 +20,8 @@ f4kmm6p|=�p�n��DB�Du{��
 
 ## Encryption
 
-- By decompiling the `level09` executable we understand that the returned value is encrypted with a progressive shift. The first letter have a shift of 0, the second of +1, the third of +2...
+- We download the executable file on our computer.
+- Then, by decompiling it, we understand that the returned value is encrypted with a progressive shift. The first letter have a shift of 0, the second of +1, the third of +2...
 
 ```sh
 $ scp -P 6666 level09@localhost:/home/user/level09/token .

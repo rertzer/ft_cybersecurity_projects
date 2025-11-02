@@ -21,7 +21,7 @@ It takes the form of a CTF on a virtual machine to which you log in first as use
 - Flags will be displayed by running the `getflag` command as `flagXX` user (XX being your current user level).
 - Your goal is then to gain flagXX user rights.
 
-## 14 Shades of Hack
+## 15 Shades of Hack
 
 0. [level00 - Ave Caesar](level00/level00.md)
 1. [level01 - Meeting John](level01/level.01md)
