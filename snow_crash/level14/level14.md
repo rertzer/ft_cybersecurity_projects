@@ -63,7 +63,7 @@ set $eax=3014 (set to flag14)
 continue
 ```
 
-> It did not escape our notice that this hack could have been used for all previous levels.
+> It has not escapted our notice that this hack could have been used for all previous levels.
 
 # Flag
 
