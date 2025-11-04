@@ -91,7 +91,7 @@ Copyright (c) 1997-2012 The PHP Group
 Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
 ```
 
-### Irregular Expressions.
+### Irregular Expressions
 
 - The first regex (the executable one) will first parse a pattern like `[x SOMETHING ]` and replace it by `y("SOMETHING")`.
 - As `y()` is a legit function, replacing `SOMETHING` by `${SOMETHING}` will allow it to be executed. Provided that `SOMETHING` don't contain any `.` or `@`, the function `y()` will return the string `SOMETHING`.

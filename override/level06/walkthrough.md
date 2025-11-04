@@ -1,16 +1,17 @@
 # level 07
 
-## the code
+## The Code
 
-We have to enter a login string and a serial number. If a series of complicated calculations done on login gives serial, the authentication is granted.
+- We have to enter a login string and a serial number.
+- If a series of complicated calculations done on login gives serial, the authentication is granted.
 
-## the hack
+## The Hack
 
-the code was copied/pasted into another program on our local computer and printf added in order to print the computed value to whom serial will be compared.
-Entering a login (rototo) print the expected serial (6232795).
-We just have to enter those values in the real level07 program.
+- The code was copied/pasted into another program on our local computer and `printf` added in order to print the computed value to whom serial will be compared.
+- Entering a login (`rototo`) prints the expected serial (6232795).
+- We just have to enter those values in the real `level07` program.
 
-```sh
+```console
 level06@OverRide:~$ ./level06
 ***********************************
 *		level06		  *

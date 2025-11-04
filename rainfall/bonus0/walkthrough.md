@@ -1,6 +1,6 @@
 # Bonus 0
 
-## the code
+## The Code
 
 ```c
 char *__cdecl p(char *dest, char *s)
@@ -37,20 +37,22 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 
-## the goal
+## The Goal
 
-The program read two strings on stdin, replace the \n with 0, concatenate them with a space in between and print the result.
-The first 20 chars of each string are first copied with strncpy() in src[20] and v3[20] respectively. The first resulting string is then copied with strcpy() in
-s[42], a space is added and then the second string is concatenated with strcat to it.
-If a src provided to strncpy() is longer than n, the function will not add a '\0'.
-On the stack, v3 is after src. If src[20] is not 0 ended, when copied into s[42], v3[20] will be copied in a raw after src[20]. As v3[20] is strcat thereafter, it will be copied twice, leading to a buffer overflow.
-A shellcode opening a shell is placed in a env variable. It's address will be guessed with getenv() in order to replace the main return address.
+- The program reads two strings on stdin, replaces the `\n` with `0`, concatenates them with a space in between and prints the result.
+- The first 20 chars of each string are first copied with `strncpy()` in `src[20]` and `v3[20]` respectively.
+- The first resulting string is then copied with `strcpy()` in `s[42]`.
+- a space is added and then the second string is concatenated with `strcat` to it.
+- If a src provided to `strncpy()` is longer than n, the function will not add a `\0`.
+- On the stack, `v3` is after `src`. If `src[20]` is not `\0` ended, when copied into `s[42]`, `v3[20]` will be copied in a row after `src[20]`.
+- As `v3[20]` is `strcat` thereafter, it will be copied twice, leading to a buffer overflow.
+- A shellcode opening a shell is placed in a env variable.
+- It's address will be guessed with `getenv()` in order to replace the `main` return address.
+- To make it work, we increased the `env` variable address by 2 and added 7 chars to the second input.
 
-To make it work, we increased the env variable address by 2 and added 7 chars to the second input.
+## The Hack
 
-## the hack
-
-```sh
+```console
 $ cd /tmp
 $ vim gev.c
 $ gcc gev.c
