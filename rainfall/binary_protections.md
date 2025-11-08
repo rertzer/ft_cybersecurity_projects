@@ -47,7 +47,7 @@
 - Code segment randomization require that the code is compiled as position-independent code (PIE).
 - This make it harder for an attacker to predict their target addresses.
 - Each run of the program has a different memory layout.
-- The shift lenght is a random multiple of the page size (typically 4 kb).
+- The default Linux kernel ASLR shifts values with a random multiple of the page size (typically 4 kb).
 
 ## `randomize_va_space`
 
@@ -64,3 +64,4 @@
 - [Grsecurity](https://en.wikibooks.org/wiki/Grsecurity/Overview)
 - [KERNHEAP](https://phrack.org/issues/66/15)
 - [ASLR](https://securitymaven.medium.com/demystifying-aslr-understanding-exploiting-and-defending-against-memory-randomization-4dd8fe648345)
+- [Linux Kernel ASLR](https://xorl.wordpress.com/2011/01/16/linux-kernel-aslr-implementation/)
