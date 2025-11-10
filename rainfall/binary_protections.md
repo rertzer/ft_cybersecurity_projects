@@ -18,9 +18,9 @@
 - `/dev/mem` provides access to the physical memory of a running system.
 - `/dev/kmem provides` access to kernel virtual memory.
 - It is possible to disable those character devices through kernel configuration options.
-- `CONFIG_DEVKMEM`: determines whether `/dev/kmem` is created on boot
-- `CONFIG_DEVMEM`: determines whether `/dev/mem` is created on boot
-- `CONFIG_STRICT_DEVMEM`: if `/dev/mem` exists, determines whether access to it is restricted
+  - `CONFIG_DEVKMEM`: Determines whether `/dev/kmem` is created on boot.
+  - `CONFIG_DEVMEM`: Determines whether `/dev/mem` is created on boot.
+  - `CONFIG_STRICT_DEVMEM`: If `/dev/mem` exists, determines whether access to it is restricted.
 
 # Stack Canary
 
@@ -33,7 +33,7 @@
 - Strict user copy check is a Linux kernel configuration option.
 - It is used to harden memory copies between user and kernel space.
 - If enabled, it performs sanity checks at compilation time focussing on strcpy(), memcpy() functions families.
-- Those tests focusses on the length argument of the copy function, by having gcc prove that the argument is within bounds.
+- Those tests focusses on the length argument of the copy function, by having GCC prove that the argument is within bounds.
 
 # Grsecurity
 
@@ -50,15 +50,15 @@
 
 - ASLR is a security protection aimed to prevent memory corruption vulnerabilities.
 - It provides random addresses for the heap, the stack and shared libraries. Sometimes the code base address is randomized too.
-- Code segment randomization require that the code is compiled as position-independent code (PIE).
-- This make it harder for an attacker to predict their target addresses.
+- Code segment randomization requires that the code is compiled as position-independent code (PIE).
+- This makes it harder for an attacker to predict their target addresses.
 - Each run of the program has a different memory layout.
 - The default Linux kernel ASLR shifts values with a random multiple of the page size (typically 4 kb).
 
 ## `kernel.randomize_va_space`
 
 - By default, Linux randomizes the address space of all programs when they start.
-- setting `proc/sys/kernel/randomize_va_space` to `0` disable this feature.
+- Setting `proc/sys/kernel/randomize_va_space` to `0` disable this feature.
 
 # Relocation Read-Only (RELRO)
 
@@ -67,27 +67,27 @@
 - RELRO makes the GOT read-only, preventing some attacks.
 - The Linker needs then to resolve all dynamically linked functions at the beginning of execution, before the table is marked as read-only.
 - RELRO also reorder the ELF internal data sections to protect them from of a buffer-overflow.
-- RELRO could be partial or full. Partial RELRO sets only the non-PLT part of the GOT as read-only. A full RELRO marks both the whole GOT as read-only.
+- RELRO could be partial or full. Partial RELRO sets only the non-PLT part of the GOT as read-only. A full RELRO marks the whole GOT as read-only.
 
-## GCC flags
+## GCC Flags
 
 - `-Wl,-z,relro`: partial RELRO
 - `-Wl,-z,relro,-z,now`: full RELRO
 
-# Dynamic linkage
+# Dynamic Linkage
 
-- To dynamically resolve functions located in shared libraries, an ELF binary uses two tables, the Global Offset Table and the Procedure Linkage Table.
-- A call to a shared library functions points to the TLB which itself jumps to an address stored in the corresponding GOT entry. The GOT contains the shared function address.
-- The GOT table is populated dynamically. When a function is called for the first time, the GOT points by default back to the PLT to the instruction following the JMP to the address stored into the GOT. The dynamic linker is theb called by the PLT code in order to find the actual location of the function.
-- The location is then written to the GOT.
-- The next time the function is called, the address found in the GOT is used.
-- Dynamic linkage helps to allow Position Independent Code, which addresses changes at each run, and can't therefore be hard coded at compilation time.
+- To dynamically resolve functions located in shared libraries, an ELF binary uses two tables, the Global Offset Table (GOT) and the Procedure Linkage Table (TLB).
+- A call to a shared library function points to the TLB which itself jumps to an address stored in the corresponding GOT entry.
+- The GOT table is populated dynamically. When a function is called for the first time, the GOT points by default back to the PLT to the instruction following the JMP instruction. The dynamic linker is then called by the PLT code in order to find the actual location of the function.
+- This location is then written to the GOT.
+- The next time the function is called, the GOT hold the shared library function address. The function is directly called.
+- Dynamic linkage helps to allow Position Independent Code (PIC), which addresses changes at each run, and can't therefore be hard coded at compilation time.
 
 ## Global Offset Table (GOT)
 
 - The GOT is an ELF file section (`.got` and `.got.plt`). It is writable but non-executable.
-- It maps symbols (global variable and shared library functions) to their absolute memory addresse.
-- GOT allows shared libraries (.so) to be relocated to a different memory address at startup.
+- It maps symbols (global variable and shared library functions) to their absolute memory addresses.
+- GOT allows shared libraries (`.so`) to be relocated to a different memory address at startup.
 - It is represented as `.got` and `.got.plt` sections in the ELF file.
 - The GOT needs to be located at a known fixed address.
 - As the GOT is writable, it may be exploited by an attacker.
@@ -96,7 +96,7 @@
 
 - The Procedure Linkage Table is a non-writable executable section (`.plt`).
 - It converts position-independent function calls to absolute locations.
-- Each entry in the PLT correspond to a JMP instruction to the corresponding GOT entry.
+- Each entry in the PLT correspond to a `JMP` instruction to the corresponding GOT entry.
 - The PLT needs to be set at a fixed offset from the `.text` section.
 
 # References
