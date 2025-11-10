@@ -25,15 +25,22 @@
 # Stack Canary
 
 - A stack canary is a random value placed on the stack below the frame pointers in such a way that a buffer overflow attempt will overwrite it.
-- Prior to a function return, the canary is compared to a reference value stored elsewhere. If they do not match, the program exits immeadiately.
+- Prior to a function return, the canary is compared to a reference value stored somewhere else in the process memory. If they do not match, the program exits immeadiately.
 - The canary value changes at each program run.
+
+## Linux gcc Implementation
+
+- On a 32-bit architecture, the canary ist 4 bytes long. 3 bytes hold a random number provided by the `execve()` system call (a 16 bytes random number is put above the argument and environment strings), and the least significant byte is replaced by 0.
+- This 0 byte works as a terminator. The idee is that most functions diverted to perform a buffer overflow will stop when writing a null byte. The attacker will therefore be unable to mimic a 0 byte containing canary.
+- `- stack-protector`: Default option. Enable the canary protection.
+- `-fno-stack-protector`: Option to disable the canary protection.
 
 # Strict User Copy Check
 
 - Strict user copy check is a Linux kernel configuration option.
 - It is used to harden memory copies between user and kernel space.
 - If enabled, it performs sanity checks at compilation time focussing on strcpy(), memcpy() functions families.
-- Those tests focusses on the length argument of the copy function, by having GCC prove that the argument is within bounds.
+- Those tests focusses on the length argument of the copy function, by having gcc prove that the argument is within bounds.
 
 # Grsecurity
 
