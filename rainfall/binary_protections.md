@@ -106,6 +106,12 @@
 - Each entry in the PLT correspond to a `JMP` instruction to the corresponding GOT entry.
 - The PLT needs to be set at a fixed offset from the `.text` section.
 
+# Non eXecute (NX)
+
+- No execution bit in page table entries
+- The purpose of NX is to prevent attackers from executing malicious code inserted into data (writable) areas.
+- NX prevents execution of those regions. This includes the stack, the heap, mmap and all data segments.
+
 # References
 
 - [Stack Smashing Protector](https://wiki.osdev.org/Stack_Smashing_Protector)
@@ -120,3 +126,5 @@
 - [Linux Kernel ASLR](https://xorl.wordpress.com/2011/01/16/linux-kernel-aslr-implementation/)
 - [RELRO](https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro)
 - [PIC, GOT and PLT (video)](https://www.youtube.com/watch?v=Ss2e6JauS0Y)
+- [Kernel level security](https://medium.com/@ofriouzan/part-3-kernel-level-security-mechanisms-097e8b8ecefa)
+- [The Evolution of Exploiting Memory Vulnerabilities](https://medium.com/@ofriouzan/part-6-my-talk-the-evolution-of-exploiting-memory-vulnerabilities-in-linux-427d44e03f33)
