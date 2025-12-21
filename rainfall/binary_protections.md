@@ -69,7 +69,7 @@
 
 # Relocation Read-Only (RELRO)
 
-- ELF files uses a lookup table, the Global Offset Table (GOT), to dynamically resolve functions.
+- ELF files use a lookup table, the Global Offset Table (GOT), to dynamically resolve functions.
 - The GOT is writable by default.
 - RELRO makes the GOT read-only, preventing some attacks.
 - The Linker needs then to resolve all dynamically linked functions at the beginning of execution, before the table is marked as read-only.
