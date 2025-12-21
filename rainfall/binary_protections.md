@@ -83,7 +83,7 @@
 
 # Dynamic Linkage
 
-- To dynamically resolve functions located in shared libraries, an ELF binary uses two tables, the Global Offset Table (GOT) and the Procedure Linkage Table (TLB).
+- To dynamically resolve functions located in shared libraries, an ELF binary uses two tables, the Global Offset Table (GOT) and the Procedure Linkage Table (PLT).
 - A call to a shared library function points to the TLB which itself jumps to an address stored in the corresponding GOT entry.
 - The GOT table is populated dynamically. When a function is called for the first time, the GOT points by default back to the PLT to the instruction following the JMP instruction. The dynamic linker is then called by the PLT code in order to find the actual location of the function.
 - This location is then written to the GOT.
