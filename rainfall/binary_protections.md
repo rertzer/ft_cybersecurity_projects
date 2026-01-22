@@ -92,7 +92,8 @@
 
 ## Global Offset Table (GOT)
 
-- The GOT is an ELF file section (`.got` and `.got.plt`). It is writable but non-executable.
+- The GOT is an ELF file section (`.got` and `.got.plt`).
+- It is writable but non-executable.
 - It maps symbols (global variable and shared library functions) to their absolute memory addresses.
 - GOT allows shared libraries (`.so`) to be relocated to a different memory address at startup.
 - It is represented as `.got` and `.got.plt` sections in the ELF file.
