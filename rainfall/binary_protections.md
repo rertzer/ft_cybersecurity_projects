@@ -25,7 +25,7 @@
 # Stack Canary
 
 - A stack canary is a random value placed on the stack below the frame pointers in such a way that a buffer overflow attempt will overwrite it.
-- Prior to a function return, the canary is compared to a reference value stored somewhere else in the process memory. If they do not match, the program exits immeadiately.
+- Prior to a function return, the canary is compared to a reference value stored somewhere else in the process memory. If they do not match, the program exits immediately.
 - The canary value changes at each program run.
 
 ## Linux gcc Implementation
