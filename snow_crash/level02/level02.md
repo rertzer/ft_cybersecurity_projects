@@ -28,7 +28,7 @@ level02@SnowCrash:~$
   - `Login incorrect`
   - `wwwbugs login: df&N`
 - We can then expect to retrieve some credentials by further invastigating the `level02.pcap` file.
-- For this, we first upload the file on our computer with the following command: `scp -P 6666 level02@localhost:level02.pcap` and get read/wirte rights on it: `chmod 644 level02.pcap`
+- For this, we first upload the file on our computer with the following command: `scp -P 6666 level02@localhost:level02.pcap` and get read/write rights on it: `chmod 644 level02.pcap`
 
 ## Wireshark
 
