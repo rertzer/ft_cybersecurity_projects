@@ -32,7 +32,7 @@
 
 - On a 32-bit architecture, the canary ist 4 bytes long. 3 bytes hold a random number provided by the `execve()` system call (a 16 bytes random number is put above the argument and environment strings), and the least significant byte is replaced by 0.
 - This 0 byte works as a terminator. The idee is that most functions diverted to perform a buffer overflow will stop when writing a null byte. The attacker will therefore be unable to mimic a 0 byte containing canary.
-- `- stack-protector`: Default option. Enable the canary protection.
+- `-stack-protector`: Default option. Enable the canary protection.
 - `-fno-stack-protector`: Option to disable the canary protection.
 
 # Strict User Copy Check
